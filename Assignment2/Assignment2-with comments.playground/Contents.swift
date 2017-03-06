@@ -164,21 +164,21 @@ struct Cell {
  */
 // ** Your Problem 4.2 answer goes here **
 /*
- Is a function that takes two int parameters and returns a generic type T, which in this context will be a cell.
+ Is a function that takes two int parameters and returns a generic T, which in this case is a cell.
  */
 /*:
  3. what is the return type of `map2`
  */
 // ** Your Problem 4.3 answer goes here **
 /*
- [[T]] - an array of arrays of type parameter T, in this context it is an array of arrays of cell
+ [[T]] - an array of arrays of T, in this context it is an array of arrays of cell
  */
 /*:
  4. what is `T` in this declaration
  */
 // ** Your Problem 4.4 answer goes here **
 /*
- T is a placeholder for a type parameter, which in this context will be Cell
+ T is a generic type, which in this context will be Cell
  */
 // A function which is like the standard map function but
 // which will operate only on a two dimensional array
@@ -249,7 +249,7 @@ struct Grid {
         (row: -1, col: -1), (row: 0, col: -1), (row: 1, col: -1)
     ]
     
-    // ** Your Problem 6 code goes here!
+    // ** Your Problem 6 code goes here! Change the following two lines **
     var rows: Int = 10
     var cols: Int = 10
     var cells: [[Cell]] = [[Cell]]()
@@ -269,6 +269,12 @@ struct Grid {
     }
 }
 
+/* test
+  var mygrid = Grid(5,5)
+   print(mygrid.cells[4][4])
+print( mygrid.cells[1][1])
+
+*/
 
 /*:
  The next two problems apply to the extension to `Grid` immediately below.
@@ -313,7 +319,7 @@ struct Grid {
  */
 // ** your problem 10.2 answer goes here.
 /*
- I would use "cell" inside the function
+ 
  */
 
 // An extension of Grid to add a function for computing the positions
@@ -332,7 +338,16 @@ extension Grid {
     }
 }
 
+/*test
+var myCell = Cell.init()
 
+myCell.position.row = 4
+myCell.position.col = 4
+myCell.state = .empty
+
+print(mygrid.neighbors(of: myCell))
+
+*/
 /*:
  ## Problem 11:
  I am providing the following function, reduce2. Answer the following questions
@@ -341,7 +356,7 @@ extension Grid {
  */
 // ** Your Problem 11.1 answer goes here **
 /*
- Defines a function that will "combine" (e.g. add, count or execute any instructions) the value of subtotal to the content of position (row, col);  in this case, it counts the cells that are alive.
+ Define a function that will "combine" (e.g. add, count or any instructions) the value of subtotal to the content of position (row, col)
  */
 /*:
  2. what is the return type of reduce2
@@ -426,7 +441,7 @@ grid.numLiving
 
 // ** Your Problem 13 comment goes here! **
 /*
- Because the sample size of 100 cells is too small to ensure an outcome of 1/3, instead it would be within a range distributed around 1/3 with a standard deviation of 3.333
+ Because 1/3 of 100 is not an integer and the sample of a 100 cells is too small to reflect an exact 1/3 outcome.
  */
 
 
@@ -479,21 +494,21 @@ extension Grid {
  */
 // Problem 15.1 answer goes here
 /*
- cell is a value type of Cell
+ The type of cell is Cell
  */
 /*:
  2. what the type of `self[row,col]`?
  */
 // Problem 15.2 answer goes here
 /*
- It is a refence value of type cell
+ Position
  */
 /*:
  3. why those two types are different?
  */
 // Problem 15.3 comment goes here
 /*
- cell cannot be modified, but self[row, col] can
+ Because the neighbors function returns an array of Positions where the neighbors are located
  */
 /*:
  4. what under what circumstances the else will be executed?
@@ -512,7 +527,8 @@ extension Grid {
 
 // Problem 16 comment goes here
 /*
- It returns the number of neighbors that are alive.  This will allow to determine the state of the cell in question in the next generation.
+ It returns the number of living cells that are neighbors.  This will allow to determine the state of the cell in question in the 
+ next generation.
  */
 
 /*:
@@ -528,7 +544,7 @@ extension Grid {
 
 // Problem 17 comment goes here
 /*
- it references the array of neighbor's positions
+ Gives each element ("iterates") inside the neighbors array
  */
 
 /*:
@@ -597,8 +613,11 @@ extension Grid {
         default :
             return .empty
         }
-    
-      
+        
+        
+        
+        // ** Problem 19 code goes here! Replace the following line **
+        //return .empty
     }
 }
 
