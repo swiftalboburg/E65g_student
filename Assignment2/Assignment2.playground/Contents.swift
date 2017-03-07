@@ -486,14 +486,14 @@ extension Grid {
  */
 // Problem 15.2 answer goes here
 /*
- It is a refence value of type cell
+ optional
  */
 /*:
  3. why those two types are different?
  */
 // Problem 15.3 comment goes here
 /*
- cell cannot be modified, but self[row, col] can
+ the optional needs to be unwrapped
  */
 /*:
  4. what under what circumstances the else will be executed?
