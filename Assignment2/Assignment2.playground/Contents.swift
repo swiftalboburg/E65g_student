@@ -486,7 +486,7 @@ extension Grid {
  */
 // Problem 15.2 answer goes here
 /*
- optional
+ optional<Cell>
  */
 /*:
  3. why those two types are different?
@@ -553,9 +553,9 @@ extension Grid {
             .reduce(0) {
                 guard let neighborCell = self[$1.row, $1.col] else { return $0 }
                 // ** Problem 18 code goes here!  replace the following 2 lines **
-                 return neighborCell.state == .alive ? $0 + 1 : $0
+                return neighborCell.state == .alive ? $0 + 1 : $0
                 
-                //return $0
+                
         }
     }
 }
