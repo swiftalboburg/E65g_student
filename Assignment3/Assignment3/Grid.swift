@@ -22,7 +22,7 @@ public func positionSequence (from: Position, to: Position) -> PositionSequence 
         .flatMap { $0 }
 }
 
-public enum CellState {
+public enum CellState : String {
     case alive, empty, born, died
     
     public var isAlive: Bool {
@@ -31,7 +31,35 @@ public enum CellState {
         default: return false
         }
     }
+    public func description() -> String {  // do we really need a switch statement if I already have the names as rawvalues?
+        
+        switch self {
+        case .alive:
+            return rawValue
+        case .empty:
+            return rawValue
+        case .born:
+            return rawValue
+        case .died:
+            return rawValue
+        }
+        
+    }
+    
+    static func allValues() -> [String] {
+        return ["alive","empty","born","died"]
+    }
+    
+    public func toggle(value:CellState)-> CellState {
+        switch value {
+        case .empty,  .died:
+            return .alive
+        case .alive, .born:
+            return .empty
+        }
+    }
 }
+
 
 public struct Cell {
     var position = Position(row:0, col:0)
