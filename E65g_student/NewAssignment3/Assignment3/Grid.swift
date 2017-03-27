@@ -1,8 +1,8 @@
 //
-//  Grid.swift
+//  Grid.swift Ana Nystedt
 //
 import Foundation
-import UIKit
+import UIKit 
 
 public typealias Position = (row: Int, col: Int)
 public typealias PositionSequence = [Position]

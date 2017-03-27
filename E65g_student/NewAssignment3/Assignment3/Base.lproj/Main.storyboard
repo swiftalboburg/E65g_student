@@ -33,7 +33,7 @@
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="livingColor">
-                                                <color key="value" red="0.17646999999999999" green="0.93452212670000001" blue="0.27059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" red="0.1764705882352941" green="0.93725490196078431" blue="0.27059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="bornColor">
                                                 <color key="value" red="0.17646999999999999" green="0.93452212670000001" blue="0.27059" alpha="0.01" colorSpace="custom" customColorSpace="sRGB"/>
