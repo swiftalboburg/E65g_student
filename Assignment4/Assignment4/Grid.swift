@@ -15,6 +15,16 @@ public enum CellState {
         default: return false
         }
     }
+    
+    public func toggle(_ value:CellState)-> CellState {
+        switch value {
+        case .empty,  .died:
+            return .alive
+        case .alive, .born:
+            return .empty
+        }
+    }
+
 }
 
 public protocol GridProtocol {

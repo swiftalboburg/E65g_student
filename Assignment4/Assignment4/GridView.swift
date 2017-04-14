@@ -51,14 +51,15 @@ import UIKit
                 let path = UIBezierPath(ovalIn: subRect)
                 
                 
-                //theGrid[Position(i,j)].isAlive ? livingColor.setFill() : emptyColor.setFill()
-                switch theGrid[Position(i,j)] {
+                //theGrid[i,j].isAlive ? livingColor.setFill() : emptyColor.setFill()
+
+               switch theGrid[i,j] {
                   case .alive : livingColor.setFill()
                   case .empty : emptyColor.setFill()
                   case .born : bornColor.setFill()
                   case .died : diedColor.setFill()
                 }
-                
+               
                 path.fill()
             }
         }
@@ -111,23 +112,23 @@ import UIKit
     }
     
     // Updated since class
-    typealias Position = (row: Int, col: Int)
-    var lastTouchedPosition: Position?
+    //typealias Position = (row: Int, col: Int)
+    var lastTouchedPosition: GridPosition?
     
-    func process(touches: Set<UITouch>) -> Position? {
+    func process(touches: Set<UITouch>) -> GridPosition? {
         guard touches.count == 1 else { return nil }
         let pos = convert(touch: touches.first!)
         guard lastTouchedPosition?.row != pos.row
             || lastTouchedPosition?.col != pos.col
             else { return pos }
         
-        theGrid[pos] = theGrid[pos].toggle(theGrid[pos])
+        theGrid[pos.row,pos.col] = theGrid[pos.row,pos.col].toggle(theGrid[pos.row,pos.col])
         // print(theGrid[pos].description())
         setNeedsDisplay()
         return pos
     }
     
-    func convert(touch: UITouch) -> Position {
+    func convert(touch: UITouch) -> GridPosition {
         let touchY = touch.location(in: self).y
         let gridHeight = frame.size.height
         let row = touchY / gridHeight * CGFloat(size)
