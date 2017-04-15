@@ -8,29 +8,50 @@
 
 import Foundation
 
-public class StandardEngine : EngineProtocol {
+ class StandardEngine : EngineProtocol {
     
-    static var gridEngine = StandardEngine(10,10)
+  
+
+    var rows : Int
+    var cols : Int
+    var refreshTimer : Timer
     
     var delegate : EngineDelegate?
     var grid : GridProtocol
-    var refreshRate = 0.0
-    var refreshTimer : Timer
-    var rows : Int
-    var cols : Int
+    var refreshRate = 0.0   {
+        didSet {
+    /*        if refreshRate > 0.0 {
+                refreshTimer = Timer.scheduledTimer(
+                    withTimeInterval: refreshRate,
+                    repeats: true
+                ) { (t: Timer) in
+                    self.grid = self.step()
+                    print("refreshrateDidSet")
+                }
+            }
+            else {
+                refreshTimer.invalidate()
+      //          refreshTimer = nil
+          }
+ */
+        }
+    }
+
+
     
     
     
+    required init(_ rows : Int, _ columns : Int) {
     
-    public required init(_ rows : Int, _ columns : Int) {
-        
         self.rows = rows
         self.cols = columns
-        grid = Grid(rows,cols)
-        refreshTimer = Timer()
-        
+        self.grid = Grid(rows,cols)
+        self.refreshTimer = Timer()
         
     }
+    
+    
+    static var gridEngine = StandardEngine(10,10)
     
     func step() -> GridProtocol {
         let newGrid = grid.next()
@@ -40,12 +61,14 @@ public class StandardEngine : EngineProtocol {
         let name = Notification.Name(rawValue: "GridUpdate")
         let n = Notification(name: name,
                              object: nil,
-                             userInfo: ["StandardEngine" : self])
+                             userInfo: ["standardEngine" : self])
         nc.post(n)
         
         
         return grid
         
     }
+    
+   
     
 }

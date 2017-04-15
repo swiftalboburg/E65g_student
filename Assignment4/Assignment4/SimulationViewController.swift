@@ -8,22 +8,41 @@
 
 import UIKit
 
-class SimulationViewController: UIViewController {
+class SimulationViewController: UIViewController, EngineDelegate {
+    
+    @IBOutlet weak var gridView: GridView!
+    var engine : StandardEngine?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+         let size = gridView.size
+
+        engine = StandardEngine(size, size)
         
-      /*  gridEngine.refreshTimer = Timer.scheduledTimer(
-            withTimeInterval: 1.0,
-            repeats: true
-        ) { (t: Timer) in
-            self.grid = self.gridView.grid as! Grid
-            self.grid = self.grid.next()
-            self.gridView.grid = self.grid
-            self.gridView.setNeedsDisplay()
+        engine!.delegate = self
+     
+        self.gridView.setNeedsDisplay()
+        
+     //   gridView.theGrid = engine.grid as! Grid
+    //    sizeStepper.value = Double(engine.grid.size.rows)
+        
+        let nc = NotificationCenter.default
+        let name = Notification.Name(rawValue: "EngineUpdate")
+        nc.addObserver(
+            forName: name,
+            object: nil,
+            queue: nil) { (n) in
+                self.gridView.setNeedsDisplay()
         }
- */
+
+   
+    }
+    
+   
+    
+    func engineDidUpdate(withGrid: Grid) {
+        self.gridView.setNeedsDisplay()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,10 +50,14 @@ class SimulationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func stepButtonAction(_ sender: Any) {
-        
-        
+    
+    
+    @IBAction func stepBtnAction(_ sender: Any) {
+        StandardEngine.gridEngine.grid = StandardEngine.gridEngine.step()
+        gridView.setNeedsDisplay()
     }
+    
+ 
 
 }
 

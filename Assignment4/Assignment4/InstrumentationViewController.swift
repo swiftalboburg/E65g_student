@@ -57,8 +57,12 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
     @IBAction func timedRefreshSwitchAction(_ sender: Any) {
         
         if (timedRefresh.isOn) {
-            
+           refreshRate.isEnabled = true
+            }
+        else {
+            refreshRate.isEnabled = false
         }
+        
     }
     
    
@@ -66,7 +70,7 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func colsStepperAction1(_ sender: Any) {
         
-        rowsText.text = "\(Int(ColsStepper.value))"
+        colsText.text = "\(Int(ColsStepper.value))"
        
         
     }
