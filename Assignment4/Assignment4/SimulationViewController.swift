@@ -8,24 +8,29 @@
 
 import UIKit
 
-class SimulationViewController: UIViewController, EngineDelegate {
+class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSource {
     
     @IBOutlet weak var gridView: GridView!
-    var engine : StandardEngine?
+     var engine = StandardEngine.gridEngine
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-         let size = gridView.size
-
-        engine = StandardEngine(size, size)
         
-        engine!.delegate = self
-     
+   
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        let size = StandardEngine.gridEngine.rows
+        
+        engine = StandardEngine(size, size)
+        engine.delegate = self
+        
         self.gridView.setNeedsDisplay()
         
-     //   gridView.theGrid = engine.grid as! Grid
-    //    sizeStepper.value = Double(engine.grid.size.rows)
+        gridView.theGrid = self
+        
         
         let nc = NotificationCenter.default
         let name = Notification.Name(rawValue: "EngineUpdate")
@@ -35,11 +40,12 @@ class SimulationViewController: UIViewController, EngineDelegate {
             queue: nil) { (n) in
                 self.gridView.setNeedsDisplay()
         }
-
-   
     }
     
-   
+    public subscript (row: Int, col: Int) -> CellState {
+        get { return engine.grid[row,col] }
+        set { engine.grid[row,col] = newValue }
+    }
     
     func engineDidUpdate(withGrid: Grid) {
         self.gridView.setNeedsDisplay()
@@ -53,7 +59,7 @@ class SimulationViewController: UIViewController, EngineDelegate {
     
     
     @IBAction func stepBtnAction(_ sender: Any) {
-        StandardEngine.gridEngine.grid = StandardEngine.gridEngine.step()
+        engine.grid = engine.grid.next()
         gridView.setNeedsDisplay()
     }
     

@@ -9,18 +9,18 @@
 import Foundation
 
  class StandardEngine : EngineProtocol {
-    
-  
+
+    static var gridEngine : StandardEngine = StandardEngine(10,10)
 
     var rows : Int
     var cols : Int
-    var refreshTimer : Timer
+    var refreshTimer : Timer?
     
     var delegate : EngineDelegate?
     var grid : GridProtocol
     var refreshRate = 0.0   {
         didSet {
-    /*        if refreshRate > 0.0 {
+           if refreshRate > 0.0 {
                 refreshTimer = Timer.scheduledTimer(
                     withTimeInterval: refreshRate,
                     repeats: true
@@ -30,10 +30,10 @@ import Foundation
                 }
             }
             else {
-                refreshTimer.invalidate()
-      //          refreshTimer = nil
+                refreshTimer?.invalidate()
+                refreshTimer = nil
           }
- */
+ 
         }
     }
 
@@ -51,8 +51,7 @@ import Foundation
     }
     
     
-    static var gridEngine = StandardEngine(10,10)
-    
+      
     func step() -> GridProtocol {
         let newGrid = grid.next()
         grid = newGrid

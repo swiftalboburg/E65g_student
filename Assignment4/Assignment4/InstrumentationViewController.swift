@@ -15,26 +15,35 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var rowsStepper: UIStepper!
     
-    
-    @IBOutlet weak var ColsStepper: UIStepper!
-    
-    
     @IBOutlet weak var rowsText: UITextField!
-
-    @IBOutlet weak var colsText: UITextField!
  
     @IBOutlet weak var refreshRate: UISlider!
     
-    
-    
     @IBOutlet weak var timedRefresh: UISwitch!
     
+   // var engine : StandardEngine!
+    
+   
+    
+    
+    @IBAction func sizeStepper(_ sender: UIStepper) {
+        // engine.refreshTimer?.invalidate()
+        // engine.refreshTimer = nil
+        StandardEngine.gridEngine.rows = Int(sender.value)
+        StandardEngine.gridEngine.cols = Int(sender.value)
+        
+        StandardEngine.gridEngine.grid = Grid(StandardEngine.gridEngine.rows, StandardEngine.gridEngine.rows)
+        //gridView.setNeedsDisplay()
+        rowsText.text = "\(Int(rowsStepper.value))"
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        rowsText.text = String(rowsStepper.value)
-        colsText.text = String(ColsStepper.value)
+        rowsStepper.value = 10
+        rowsText.text = String(Int(rowsStepper.value))
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,17 +51,7 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func rowsStepperAction(_ sender: Any) {
-       // engine.refreshTimer?.invalidate()
-       // engine.refreshTimer = nil
-      /*  engine.grid.size = Int(sender.value)
-        engine.grid = Grid(GridSize(rows: engine.grid.size, cols: engine.grid.size))
-        //gridView.setNeedsDisplay()
-      */
-        rowsText.text = "\(Int(rowsStepper.value))"
-        
-        
-    }
+  
     
     @IBAction func timedRefreshSwitchAction(_ sender: Any) {
         
@@ -68,12 +67,7 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
    
     
     
-    @IBAction func colsStepperAction1(_ sender: Any) {
-        
-        colsText.text = "\(Int(ColsStepper.value))"
-       
-        
-    }
+
    
     
    }

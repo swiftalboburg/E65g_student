@@ -11,7 +11,7 @@ import UIKit
 
 
 @IBDesignable class GridView: UIView {
-    var theGrid = Grid(0,0)
+    
     
     
     @IBInspectable var livingColor : UIColor  = UIColor.blue
@@ -24,14 +24,13 @@ import UIKit
     
     @IBInspectable var gridColor : UIColor = UIColor.gray
     
-    @IBInspectable var gridWidth : CGFloat = 0.0
+    @IBInspectable var gridWidth : CGFloat = 2
     
-    @IBInspectable var size : Int = 20 {
-        didSet{
-            theGrid = Grid(size, size)
-        }
-    }
-    
+    @IBInspectable var size : Int = 3
+      
+    var theGrid : GridViewDataSource?
+   
+  
     override func draw(_ rect: CGRect) {
         let boardSize = CGSize(
             width: rect.size.width/CGFloat(size),
@@ -53,7 +52,7 @@ import UIKit
                 
                 //theGrid[i,j].isAlive ? livingColor.setFill() : emptyColor.setFill()
 
-               switch theGrid[i,j] {
+               switch theGrid![i,j] {
                   case .alive : livingColor.setFill()
                   case .empty : emptyColor.setFill()
                   case .born : bornColor.setFill()
@@ -122,7 +121,7 @@ import UIKit
             || lastTouchedPosition?.col != pos.col
             else { return pos }
         
-        theGrid[pos.row,pos.col] = theGrid[pos.row,pos.col].toggle(theGrid[pos.row,pos.col])
+        theGrid![pos.row,pos.col] = theGrid![pos.row,pos.col].toggle(theGrid![pos.row,pos.col])
         // print(theGrid[pos].description())
         setNeedsDisplay()
         return pos
