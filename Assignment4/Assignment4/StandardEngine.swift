@@ -18,6 +18,7 @@ import Foundation
     
     var delegate : EngineDelegate?
     var grid : GridProtocol
+    var tempRate = 0.0
     var refreshRate = 0.0   {
         didSet {
            if refreshRate > 0.0 {
@@ -26,7 +27,7 @@ import Foundation
                     repeats: true
                 ) { (t: Timer) in
                     self.grid = self.step()
-                    print("refreshrateDidSet")
+                   
                 }
             }
             else {
@@ -35,6 +36,7 @@ import Foundation
           }
  
         }
+ 
     }
 
 
@@ -45,7 +47,7 @@ import Foundation
     
         self.rows = rows
         self.cols = columns
-        self.grid = Grid(rows,cols)
+        self.grid = Grid(rows,columns)
         self.refreshTimer = Timer()
         
     }

@@ -21,7 +21,7 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var timedRefresh: UISwitch!
     
-   // var engine : StandardEngine!
+    var engine = StandardEngine.gridEngine
     
    
     
@@ -29,10 +29,10 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
     @IBAction func sizeStepper(_ sender: UIStepper) {
         // engine.refreshTimer?.invalidate()
         // engine.refreshTimer = nil
-        StandardEngine.gridEngine.rows = Int(sender.value)
-        StandardEngine.gridEngine.cols = Int(sender.value)
+        engine.rows = Int(sender.value)
+        engine.cols = Int(sender.value)
         
-        StandardEngine.gridEngine.grid = Grid(StandardEngine.gridEngine.rows, StandardEngine.gridEngine.rows)
+        engine.grid = Grid(engine.rows, engine.rows)
         //gridView.setNeedsDisplay()
         rowsText.text = "\(Int(rowsStepper.value))"
         
@@ -46,28 +46,36 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
         
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        timedRefresh.isOn = false
+    }
+  
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
   
+    @IBAction func refreshRateAction(_ sender: UISlider) {
+       //engine.refreshRate = Double(sender.value)
+       /* Note: I could not update it here because when I used the tab controller to switch to the Simulation tab the UISlider resets itseft to the initial value.  I used the switch event to capture the slider value
+     */
+    }
     
     @IBAction func timedRefreshSwitchAction(_ sender: Any) {
         
         if (timedRefresh.isOn) {
-           refreshRate.isEnabled = true
+            //refreshRate.isEnabled = true
+            engine.tempRate = Double(refreshRate.value)
+            
             }
         else {
-            refreshRate.isEnabled = false
+            engine.tempRate = 0.0
+            //refreshRate.isEnabled = false
         }
         
     }
-    
-   
-    
-    
-
    
     
    }

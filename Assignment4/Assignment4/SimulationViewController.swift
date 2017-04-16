@@ -24,13 +24,14 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
         
         let size = StandardEngine.gridEngine.rows
         
-        engine = StandardEngine(size, size)
-        engine.delegate = self
+        engine.grid = Grid(size, size)
+        gridView.size = size
+        engine.delegate = self   //?????
         
         self.gridView.setNeedsDisplay()
         
-        gridView.theGrid = self
-        
+        gridView.theGrid = self   //????
+       
         
         let nc = NotificationCenter.default
         let name = Notification.Name(rawValue: "EngineUpdate")
@@ -59,9 +60,21 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
     
     
     @IBAction func stepBtnAction(_ sender: Any) {
-        engine.grid = engine.grid.next()
-        gridView.setNeedsDisplay()
+        if engine.tempRate > 0 {
+            engine.refreshRate = engine.tempRate
+        } else {
+            engine.grid = engine.grid.next()
+            gridView.setNeedsDisplay()
+        }
+        
     }
+    
+  
+    @IBAction func stopButton(_ sender: UIButton) {
+        engine.tempRate = 0
+        engine.refreshRate = 0
+    }
+    
     
  
 
