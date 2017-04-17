@@ -16,12 +16,11 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+       
    
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         let size = StandardEngine.gridEngine.rows
         
         engine.grid = Grid(size, size)
@@ -31,7 +30,7 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
         self.gridView.setNeedsDisplay()
         
         gridView.theGrid = self   //????
-       
+        
         
         let nc = NotificationCenter.default
         let name = Notification.Name(rawValue: "EngineUpdate")
@@ -41,6 +40,7 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
             queue: nil) { (n) in
                 self.gridView.setNeedsDisplay()
         }
+        
     }
     
     public subscript (row: Int, col: Int) -> CellState {
@@ -63,7 +63,7 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
         if engine.tempRate > 0 {
             engine.refreshRate = engine.tempRate
         } else {
-            engine.grid = engine.grid.next()
+            engine.grid = engine.step()//engine.grid.next()
             gridView.setNeedsDisplay()
         }
         

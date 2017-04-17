@@ -147,9 +147,8 @@
                                             <action selector="stepBtnAction:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="4vN-L1-El7"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAP-ax-tKw">
-                                        <rect key="frame" x="165" y="522" width="45.999999999999943" height="30.000000000000227"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAP-ax-tKw">
+                                        <rect key="frame" x="171.5" y="464" width="32" height="30"/>
                                         <state key="normal" title="Stop"/>
                                         <connections>
                                             <action selector="stopButton:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="FLS-8o-CiY"/>
@@ -163,9 +162,12 @@
                                         <variation key="widthClass=compact" constant="6.5"/>
                                     </constraint>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="height" secondItem="yqe-89-kxr" secondAttribute="height" multiplier="0.75" priority="750" id="9I5-dE-mE2" userLabel="Grid View.height = 0.75 × height @750"/>
+                                    <constraint firstItem="pAP-ax-tKw" firstAttribute="centerX" secondItem="yqe-89-kxr" secondAttribute="centerX" id="Fa3-LZ-fEY"/>
                                     <constraint firstItem="wR4-Za-plU" firstAttribute="centerX" secondItem="yqe-89-kxr" secondAttribute="centerX" id="Hd2-Se-Bbx"/>
+                                    <constraint firstItem="jA0-hc-e78" firstAttribute="top" secondItem="wR4-Za-plU" secondAttribute="bottom" constant="24" id="IDj-EU-Lca"/>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="top" secondItem="wR4-Za-plU" secondAttribute="bottom" constant="24" id="MIr-of-itW" userLabel="Grid View.top = Step Button.bottom + 24"/>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="width" relation="lessThanOrEqual" secondItem="yqe-89-kxr" secondAttribute="width" multiplier="0.75" priority="750" id="MXM-CZ-ZC9"/>
+                                    <constraint firstItem="pAP-ax-tKw" firstAttribute="top" secondItem="jA0-hc-e78" secondAttribute="bottom" constant="8" id="S3z-tF-3nz"/>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="width" secondItem="yqe-89-kxr" secondAttribute="width" multiplier="0.75" priority="750" id="TnF-Ri-Jsz"/>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="centerX" secondItem="yqe-89-kxr" secondAttribute="centerX" id="dx0-iA-dmx"/>
                                 </constraints>
@@ -275,6 +277,12 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Statistics" image="connectivity-bar-7" id="Akp-3t-54O"/>
+                    <connections>
+                        <outlet property="aliveTextField" destination="9Bx-Nc-TRX" id="1Rw-uT-yQB"/>
+                        <outlet property="bornTextField" destination="w97-5V-EUf" id="IKT-4i-3me"/>
+                        <outlet property="diedTextField" destination="fW1-Iv-j77" id="Dsk-7k-Xdv"/>
+                        <outlet property="emptyTextField" destination="Zfo-Ta-uIK" id="ppl-cB-NM3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MeS-eQ-2sw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

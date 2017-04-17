@@ -82,7 +82,7 @@ extension GridProtocol {
     }
 }
 
-public struct Grid: GridProtocol {
+public struct Grid: GridProtocol, GridViewDataSource {
     private var _cells: [[CellState]]
     public let size: GridSize
 
@@ -140,6 +140,10 @@ extension Grid: Sequence {
             let newGrid:Grid = grid.next() as! Grid
             history = GridHistory(newGrid.living, history)
             grid = newGrid
+            
+           
+
+            
             return grid
         }
     }

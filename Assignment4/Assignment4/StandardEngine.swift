@@ -27,7 +27,13 @@ import Foundation
                     repeats: true
                 ) { (t: Timer) in
                     self.grid = self.step()
-                   
+                    let nc = NotificationCenter.default
+                    let name = Notification.Name(rawValue: "GridUpdate")
+                    let n = Notification(name: name,
+                                         object: nil,
+                                         userInfo: ["standardEngine" : self])
+                    nc.post(n)
+
                 }
             }
             else {

@@ -51,15 +51,16 @@ import UIKit
                 
                 
                 //theGrid[i,j].isAlive ? livingColor.setFill() : emptyColor.setFill()
-
-               switch theGrid![i,j] {
-                  case .alive : livingColor.setFill()
-                  case .empty : emptyColor.setFill()
-                  case .born : bornColor.setFill()
-                  case .died : diedColor.setFill()
-                }
+                if  theGrid != nil {
+                    switch theGrid![i,j] {
+                    case .alive : livingColor.setFill()
+                    case .empty : emptyColor.setFill()
+                    case .born : bornColor.setFill()
+                    case .died : diedColor.setFill()
+                    }
                
-                path.fill()
+                    path.fill()
+                }
             }
         }
         
@@ -123,6 +124,16 @@ import UIKit
         
         theGrid![pos.row,pos.col] = theGrid![pos.row,pos.col].toggle(theGrid![pos.row,pos.col])
         // print(theGrid[pos].description())
+        
+       // delegate?.engineDidUpdate(withGrid : grid as! Grid)
+        let nc = NotificationCenter.default
+        let name = Notification.Name(rawValue: "GridUpdate")
+        let n = Notification(name: name,
+                             object: nil,
+                             userInfo: ["standardEngine" : self])
+        nc.post(n)
+        
+        
         setNeedsDisplay()
         return pos
     }
