@@ -32,7 +32,25 @@ class StatisticsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.aliveCounter = lazyPositions(self.engine.grid.size)
+            .filter( { return  self.engine.grid[$0.row, $0.col] == .alive })
+            .count
         
+        self.emptyCounter = lazyPositions(self.engine.grid.size)
+            .filter( { return  self.engine.grid[$0.row, $0.col] == .empty })
+            .count
+        self.bornCounter = lazyPositions(self.engine.grid.size)
+            .filter( { return  self.engine.grid[$0.row, $0.col] == .born })
+            .count
+        self.diedCounter = lazyPositions(self.engine.grid.size)
+            .filter( { return  self.engine.grid[$0.row, $0.col] == .died })
+            .count
+        
+       
+        self.aliveTextField.text = String(self.aliveCounter)
+        self.emptyTextField.text = String(self.emptyCounter)
+        self.bornTextField.text = String(self.bornCounter)
+        self.diedTextField.text = String(self.diedCounter)
         
         //aliveTextField.text = String(aliveCounter)
     }
