@@ -32,17 +32,17 @@ class StatisticsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.aliveCounter = lazyPositions(self.engine.grid.size)
+        self.aliveCounter = aliveCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .alive })
             .count
         
-        self.emptyCounter = lazyPositions(self.engine.grid.size)
+        self.emptyCounter = emptyCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .empty })
             .count
-        self.bornCounter = lazyPositions(self.engine.grid.size)
+        self.bornCounter = bornCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .born })
             .count
-        self.diedCounter = lazyPositions(self.engine.grid.size)
+        self.diedCounter = diedCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .died })
             .count
         
@@ -65,29 +65,22 @@ class StatisticsViewController: UIViewController {
                 print("observer")
              
                 
-                self.aliveCounter = lazyPositions(self.engine.grid.size)
+                self.aliveCounter = self.aliveCounter + lazyPositions(self.engine.grid.size)
                  .filter( { return  self.engine.grid[$0.row, $0.col] == .alive })
                  .count
                 
-                self.emptyCounter = lazyPositions(self.engine.grid.size)
+                self.emptyCounter = self.emptyCounter + lazyPositions(self.engine.grid.size)
                     .filter( { return  self.engine.grid[$0.row, $0.col] == .empty })
                     .count
-                self.bornCounter = lazyPositions(self.engine.grid.size)
+                self.bornCounter = self.bornCounter + lazyPositions(self.engine.grid.size)
                     .filter( { return  self.engine.grid[$0.row, $0.col] == .born })
                     .count
-                self.diedCounter = lazyPositions(self.engine.grid.size)
+                self.diedCounter = self.diedCounter + lazyPositions(self.engine.grid.size)
                     .filter( { return  self.engine.grid[$0.row, $0.col] == .died })
                     .count
                 
                 
-                /* lazyPositions(self.engine.grid.size).forEach {
-                 switch self.engine.grid[$0.row, $0.col] {
-                 case .alive: aliveCounter += 1
-                 case .empty : emptyCounter += 1
-                 case .born : bornCounter += 1
-                 case .died : diedCounter += 1
-                 }
-                 */
+                
             self.aliveTextField.text = String(self.aliveCounter)
             self.emptyTextField.text = String(self.emptyCounter)
             self.bornTextField.text = String(self.bornCounter)
