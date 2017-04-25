@@ -51,7 +51,7 @@
                                                     <action selector="refreshRateAction:" destination="9pv-A4-QxB" eventType="valueChanged" id="bxc-Yl-zCy"/>
                                                 </connections>
                                             </slider>
-                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="50" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="cZw-rJ-jP9" userLabel="Rows Stepper">
+                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="150" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="cZw-rJ-jP9" userLabel="Rows Stepper">
                                                 <rect key="frame" x="202" y="70" width="94" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>
