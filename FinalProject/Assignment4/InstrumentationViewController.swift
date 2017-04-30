@@ -8,10 +8,10 @@
 
 import UIKit
 
+let finalProjectURL = "https://dl.dropboxusercontent.com/u/7544475/S65g.json"
+//UITextFieldDelegate,
 
-
-
-class InstrumentationViewController: UIViewController, UITextFieldDelegate {
+class InstrumentationViewController: UIViewController,  UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var rowsStepper: UIStepper!
     
@@ -21,8 +21,14 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var timedRefresh: UISwitch!
     
-    var engine = StandardEngine.gridEngine
     
+    @IBOutlet weak var tableViewOfConfigurations: UITableView!
+    
+    
+    
+    var engine = StandardEngine.gridEngine
+    var jsonArray : NSArray?
+    var jsonDictionary : NSDictionary?
    
     
     
@@ -38,16 +44,50 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        rowsStepper.value = 10
+        rowsStepper.value = 1
         rowsText.text = String(Int(rowsStepper.value))
+        
+        let fetcher = Fetcher()
+        fetcher.fetchJSON(url: URL(string:finalProjectURL)!) { (json: Any?, message: String?) in
+            guard message == nil else {
+                print(message ?? "nil")
+                return
+            }
+            guard let json = json else {
+                print("no json")
+                return
+            }
+            //print(json)
+            //let resultString = (json as AnyObject).description
+            self.jsonArray = (json as! NSArray)
+            print(self.jsonArray!)
+            self.jsonDictionary = (self.jsonArray![0] as! NSDictionary)
+            let jsonTitle = self.jsonDictionary?["title"] as! String
+            let jsonContents = self.jsonDictionary?["contents"] as! [[Int]]
+            print (jsonTitle, jsonContents)
+            //OperationQueue.main.addOperation {
+           //     self.textView.text = resultString
+               
+            //}
+            self.tableViewOfConfigurations.reloadData()
+            
+        }
+      
+        
+        
         
     }
 
     override func viewWillAppear(_ animated: Bool) {
         timedRefresh.isOn = false
+        
+        
+      
     }
   
     
@@ -76,7 +116,56 @@ class InstrumentationViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
-   
+  
     
-   }
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 1
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        let identifier = "basicCell"
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        let label = cell.contentView.subviews.first as! UILabel
+        
+        if (self.jsonDictionary != nil) {
+            label.text = (self.jsonDictionary?["title"] as! String)
+        }
+        return cell
+        
+       
+    }
+ 
+ /*
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionHeaders[section]
+    }
+ */
+   
+ 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+       
+        
+    }
+    
+    
+  /*
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let indexPath = tableView.indexPathForSelectedRow
+        if let indexPath = indexPath {
+            let fruitValue = data[indexPath.section][indexPath.row]
+            if let vc = segue.destination as? GridEditorViewController {
+                vc.fruitValue = fruitValue
+                vc.saveClosure = { newValue in
+                    data[indexPath.section][indexPath.row] = newValue
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+   */
+}
