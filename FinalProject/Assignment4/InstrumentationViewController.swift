@@ -28,8 +28,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     
     var engine = StandardEngine.gridEngine
     var jsonArray : NSArray?
-    var jsonDictionary : NSDictionary?
-   
+    var jsonDictionary = [String: [[Int]]]() as Dictionary?  //[String: [[Int]]]
     
     
     @IBAction func sizeStepper(_ sender: UIStepper) {
@@ -62,19 +61,31 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
                 print("no json")
                 return
             }
-            //print(json)
+            print(json)
             //let resultString = (json as AnyObject).description
             self.jsonArray = (json as! NSArray)
-            print(self.jsonArray!)
-            self.jsonDictionary = (self.jsonArray![0] as! NSDictionary)
-            let jsonTitle = self.jsonDictionary?["title"] as! String
-            let jsonContents = self.jsonDictionary?["contents"] as! [[Int]]
-            print (jsonTitle, jsonContents)
-            //OperationQueue.main.addOperation {
-           //     self.textView.text = resultString
+            //print(self.jsonArray!)
+            for var i in (0..<self.jsonArray!.count) {
+                let dict = (self.jsonArray![i] as! NSDictionary)
+                
+                let jsonTitle = dict["title"] as! String
+                let jsonContents = dict["contents"] as! [[Int]]
                
-            //}
-            self.tableViewOfConfigurations.reloadData()
+                self.jsonDictionary?[jsonTitle] = jsonContents
+                i += 1
+                
+            }
+            //let jsonTitle = self.jsonDictionary?["title"] as! String
+            //let jsonContents = self.jsonDictionary?["contents"] as! [[Int]]
+            //print (jsonTitle, jsonContents)
+            print(self.jsonDictionary!)
+            OperationQueue.main.addOperation {
+               
+                self.tableViewOfConfigurations.reloadData()
+            }
+           
+            
+            
             
         }
       
@@ -119,8 +130,11 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
   
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 1
+        if (self.jsonDictionary != nil) {
+            return self.jsonDictionary!.count
+        } else {
+           return 1
+        }
     }
     
     
@@ -133,7 +147,15 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
         let label = cell.contentView.subviews.first as! UILabel
         
         if (self.jsonDictionary != nil) {
-            label.text = (self.jsonDictionary?["title"] as! String)
+            let dict1 = (self.jsonArray![indexPath.item] as! NSDictionary)
+            
+          
+            label.text = dict1["title"] as? String
+            OperationQueue.main.addOperation {
+                
+                self.tableViewOfConfigurations.reloadData()
+            }
+            
         }
         return cell
         
