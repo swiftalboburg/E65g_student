@@ -4,6 +4,8 @@
 public typealias GridPosition = (row: Int, col: Int)
 public typealias GridSize = (rows: Int, cols: Int)
 
+
+
 fileprivate func norm(_ val: Int, to size: Int) -> Int { return ((val % size) + size) % size }
 
 public enum CellState {
@@ -35,6 +37,8 @@ public protocol GridProtocol {
     init(_ rows: Int, _ cols: Int, cellInitializer: (GridPosition) -> CellState)
     var description: String { get }
     var size: GridSize { get }
+    
+    
     subscript (row: Int, col: Int) -> CellState { get set }
     func next() -> Self 
 }
@@ -85,6 +89,9 @@ extension GridProtocol {
 public struct Grid: GridProtocol, GridViewDataSource {
     private var _cells: [[CellState]]
     public let size: GridSize
+    public static var jsonConfig : [[Int]]?
+   
+    
 
     public subscript (row: Int, col: Int) -> CellState {
         get { return _cells[norm(row, to: size.rows)][norm(col, to: size.cols)] }
@@ -158,4 +165,39 @@ public extension Grid {
         default: return .empty
         }
     }
+    
+
+    public static func jsonInitializer(pos: GridPosition) -> CellState {
+       
+        var j = 0
+        var jsonGridPositions = [GridPosition]()
+        
+        for i in 0..<jsonConfig!.count {
+            j = 0
+            while (j < jsonConfig![0].count) {
+                 let jsonRow = jsonConfig![i][j]
+                 j += 1
+                 let jsonCol = jsonConfig![i][j]
+                 jsonGridPositions.append(GridPosition(jsonRow,jsonCol))
+                 j += 1
+            }
+            
+        }
+     
+        //print(jsonGridPositions)
+       
+        if (jsonGridPositions.contains(where: { $0 == pos} ) ){
+            return .alive
+        } else {
+            return .empty
+        }
+        
+
+      
+    }
+    
+    
 }
+
+
+

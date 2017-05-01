@@ -33,12 +33,13 @@ class ConfigurationViewController: UIViewController, EngineDelegate, GridViewDat
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        StandardEngine.gridEngine.rows = findMax() * 2
-        let size = StandardEngine.gridEngine.rows
+        engine.rows = findMax() * 2
+        let size = engine.rows
+        
+        Grid.jsonConfig = initialConfiguration
         
         
-        
-        engine.grid = Grid(size, size)
+        engine.grid = Grid(size, size, cellInitializer: Grid.jsonInitializer)
         gridView.size = size
         engine.delegate = self   //?????
         

@@ -61,7 +61,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
                 print("no json")
                 return
             }
-            print(json)
+            //print(json)
             //let resultString = (json as AnyObject).description
             self.jsonArray = (json as! NSArray)
             //print(self.jsonArray!)
@@ -75,10 +75,9 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
                 i += 1
                 
             }
-            //let jsonTitle = self.jsonDictionary?["title"] as! String
-            //let jsonContents = self.jsonDictionary?["contents"] as! [[Int]]
+           
             //print (jsonTitle, jsonContents)
-            print(self.jsonDictionary!)
+           // print(self.jsonDictionary!)
             OperationQueue.main.addOperation {
                
                 self.tableViewOfConfigurations.reloadData()
