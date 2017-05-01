@@ -75,22 +75,7 @@ class ConfigurationViewController: UIViewController, EngineDelegate, GridViewDat
 
     
     
-    @IBAction func stepBtnAction(_ sender: Any) {
-        if engine.tempRate > 0 {
-            engine.refreshRate = engine.tempRate
-        } else {
-            engine.grid = engine.step()//engine.grid.next()
-            gridView.setNeedsDisplay()
-        }
-        
-    }
-    
-  
-    @IBAction func stopButton(_ sender: UIButton) {
-        engine.tempRate = 0
-        engine.refreshRate = 0
-    }
-    
+       
     
  
 
