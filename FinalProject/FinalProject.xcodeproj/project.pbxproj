@@ -10,6 +10,7 @@
 		2E2A70B31E9EAEB00053ABA7 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A70B21E9EAEB00053ABA7 /* Engine.swift */; };
 		2E2A70B51E9FEC940053ABA7 /* StandardEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A70B41E9FEC940053ABA7 /* StandardEngine.swift */; };
 		2E2A70B71EA033AF0053ABA7 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A70B61EA033AF0053ABA7 /* GridView.swift */; };
+		2E507C6A1EB6ED5D00B687AC /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E507C691EB6ED5D00B687AC /* ConfigurationViewController.swift */; };
 		2E57616F1E9D37A500347E45 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E57616E1E9D37A500347E45 /* StatisticsViewController.swift */; };
 		2E69D2721EB0FA4C007BA75D /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E69D2711EB0FA4C007BA75D /* Fetcher.swift */; };
 		FB475A381E8828EF00D2EAD3 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB475A371E8828EF00D2EAD3 /* Grid.swift */; };
@@ -25,6 +26,7 @@
 		2E2A70B21E9EAEB00053ABA7 /* Engine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		2E2A70B41E9FEC940053ABA7 /* StandardEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardEngine.swift; sourceTree = "<group>"; };
 		2E2A70B61EA033AF0053ABA7 /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		2E507C691EB6ED5D00B687AC /* ConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		2E57616E1E9D37A500347E45 /* StatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		2E69D2711EB0FA4C007BA75D /* Fetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		FB475A371E8828EF00D2EAD3 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		FBAD2E051E2BE38C008207C0 /* FinalProject */ = {
 			isa = PBXGroup;
 			children = (
+				2E507C691EB6ED5D00B687AC /* ConfigurationViewController.swift */,
 				2E69D2711EB0FA4C007BA75D /* Fetcher.swift */,
 				2E2A70B61EA033AF0053ABA7 /* GridView.swift */,
 				FB475A371E8828EF00D2EAD3 /* Grid.swift */,
@@ -162,6 +165,7 @@
 				FBAD2E0B1E2BE38C008207C0 /* SimulationViewController.swift in Sources */,
 				2E2A70B31E9EAEB00053ABA7 /* Engine.swift in Sources */,
 				2E2A70B71EA033AF0053ABA7 /* GridView.swift in Sources */,
+				2E507C6A1EB6ED5D00B687AC /* ConfigurationViewController.swift in Sources */,
 				2E57616F1E9D37A500347E45 /* StatisticsViewController.swift in Sources */,
 				FBAD2E071E2BE38C008207C0 /* AppDelegate.swift in Sources */,
 				2E2A70B51E9FEC940053ABA7 /* StandardEngine.swift in Sources */,

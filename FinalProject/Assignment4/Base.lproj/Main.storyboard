@@ -115,7 +115,7 @@
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <segue destination="Ad9-6N-DnD" kind="show" id="Nfl-Sv-8Dd"/>
+                                                    <segue destination="K2l-1o-lCt" kind="show" id="w2T-yo-uzv"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -169,24 +169,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1783" y="-312"/>
-        </scene>
-        <!--Configuration View Controller-->
-        <scene sceneID="zpW-Cq-qPy">
-            <objects>
-                <viewController id="Ad9-6N-DnD" userLabel="Configuration View Controller" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="vZP-pq-QSD"/>
-                        <viewControllerLayoutGuide type="bottom" id="R56-gu-7ek"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="17c-NW-rwz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GLb-Ox-nDM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2575" y="-313"/>
         </scene>
         <!--Instrumentation Nav Controller-->
         <scene sceneID="UgQ-ws-tCT">
@@ -403,6 +385,92 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--Configuration-->
+        <scene sceneID="GLw-hc-eym">
+            <objects>
+                <viewController id="K2l-1o-lCt" userLabel="Configuration" customClass="ConfigurationViewController" customModule="FinalProject" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hvV-1H-BtO"/>
+                        <viewControllerLayoutGuide type="bottom" id="arr-bX-oFL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="56R-4h-OpZ" userLabel="ConfigurationView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jFn-zB-5OS" userLabel="BackView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmr-at-OLx" userLabel="Step Button">
+                                        <rect key="frame" x="113" y="121" width="150" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="1K9-ln-60M"/>
+                                            <constraint firstAttribute="width" constant="150" id="RRC-tr-yrS"/>
+                                        </constraints>
+                                        <state key="normal" title="Step/Start Clock"/>
+                                        <connections>
+                                            <action selector="stepBtnAction:" destination="K2l-1o-lCt" eventType="touchUpInside" id="iLX-LW-83O"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsc-5g-sFz">
+                                        <rect key="frame" x="172" y="526" width="32" height="30"/>
+                                        <state key="normal" title="Stop"/>
+                                        <connections>
+                                            <action selector="stopButton:" destination="K2l-1o-lCt" eventType="touchUpInside" id="cgp-S6-taq"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lte-Um-1S4" customClass="GridView" customModule="FinalProject" customModuleProvider="target">
+                                        <rect key="frame" x="25" y="176" width="325" height="325"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="lte-Um-1S4" secondAttribute="height" multiplier="1:1" id="NMV-Ev-5Jc"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="gridWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="centerX" secondItem="jFn-zB-5OS" secondAttribute="centerX" id="0Fk-6K-L6M" userLabel="Grid View.centerX = centerX "/>
+                                    <constraint firstItem="dsc-5g-sFz" firstAttribute="top" secondItem="lte-Um-1S4" secondAttribute="bottom" constant="25" id="6GH-jZ-whH"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="top" secondItem="hmr-at-OLx" secondAttribute="bottom" constant="25" id="8Nm-tk-qSe"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="width" secondItem="jFn-zB-5OS" secondAttribute="width" multiplier="0.75" priority="750" constant="43.75" id="Ln5-p1-mjj"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="centerY" secondItem="jFn-zB-5OS" secondAttribute="centerY" id="U2h-jf-nzv" userLabel="Grid View.centerY = centerY + 6.5">
+                                        <variation key="widthClass=compact" constant="29.5"/>
+                                    </constraint>
+                                    <constraint firstItem="hmr-at-OLx" firstAttribute="centerX" secondItem="jFn-zB-5OS" secondAttribute="centerX" id="j8s-Ty-cKW"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="height" relation="lessThanOrEqual" secondItem="jFn-zB-5OS" secondAttribute="height" multiplier="0.75" priority="750" id="o7d-bz-EpP"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="height" secondItem="jFn-zB-5OS" secondAttribute="height" multiplier="0.75" priority="750" constant="-138.5" id="rgV-SM-5K8" userLabel="Grid View.height = 0.75 × height @750"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="width" relation="lessThanOrEqual" secondItem="jFn-zB-5OS" secondAttribute="width" multiplier="0.75" priority="750" constant="43.75" id="y3A-zP-2Dj"/>
+                                    <constraint firstItem="dsc-5g-sFz" firstAttribute="centerX" secondItem="jFn-zB-5OS" secondAttribute="centerX" id="zbd-0d-TEd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jFn-zB-5OS" firstAttribute="bottom" secondItem="arr-bX-oFL" secondAttribute="top" id="4ZO-Ia-MJQ"/>
+                            <constraint firstItem="jFn-zB-5OS" firstAttribute="leading" secondItem="56R-4h-OpZ" secondAttribute="leading" id="9gH-ON-fJa"/>
+                            <constraint firstAttribute="trailing" secondItem="jFn-zB-5OS" secondAttribute="trailing" id="Ik3-pP-IZp"/>
+                            <constraint firstItem="arr-bX-oFL" firstAttribute="top" secondItem="jFn-zB-5OS" secondAttribute="bottom" id="OU2-d5-J4L"/>
+                            <constraint firstItem="jFn-zB-5OS" firstAttribute="top" secondItem="56R-4h-OpZ" secondAttribute="top" id="Zxh-4Y-ddU"/>
+                            <constraint firstItem="jFn-zB-5OS" firstAttribute="top" secondItem="56R-4h-OpZ" secondAttribute="top" id="dda-bL-SJm"/>
+                            <constraint firstItem="jFn-zB-5OS" firstAttribute="leading" secondItem="56R-4h-OpZ" secondAttribute="leading" id="llZ-3Y-DUm"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Simulation" image="grid-out-many-7" id="OAr-Lg-ouV" userLabel="Instrumentation"/>
+                    <connections>
+                        <outlet property="gridView" destination="lte-Um-1S4" id="qSB-aI-KVt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bys-GP-aPN" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2689" y="-438"/>
         </scene>
     </scenes>
     <resources>

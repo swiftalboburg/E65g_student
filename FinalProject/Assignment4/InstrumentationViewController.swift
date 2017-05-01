@@ -175,19 +175,20 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     }
     
     
-  /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let indexPath = tableView.indexPathForSelectedRow
+        let indexPath = tableViewOfConfigurations.indexPathForSelectedRow
         if let indexPath = indexPath {
-            let fruitValue = data[indexPath.section][indexPath.row]
-            if let vc = segue.destination as? GridEditorViewController {
-                vc.fruitValue = fruitValue
+            let dict = (self.jsonArray![indexPath.row] as! NSDictionary)
+            
+            let selectedValue = dict["title"] as! String
+           
+            if let vc = segue.destination as? ConfigurationViewController {
+                vc.initialConfiguration = self.jsonDictionary?[selectedValue]
                 vc.saveClosure = { newValue in
-                    data[indexPath.section][indexPath.row] = newValue
-                    self.tableView.reloadData()
+                    self.jsonDictionary?[selectedValue] = newValue
+                    self.tableViewOfConfigurations.reloadData()
                 }
             }
         }
-        
-   */
+    }
 }
