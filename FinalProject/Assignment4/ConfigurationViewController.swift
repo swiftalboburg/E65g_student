@@ -8,14 +8,19 @@
 
 import UIKit
 
-class ConfigurationViewController: UIViewController, EngineDelegate, GridViewDataSource {
+class ConfigurationViewController: UIViewController,  GridViewDataSource //EngineDelegate,
+{
+   
     
     
     var initialConfiguration : [[Int]]?
     var  saveClosure: (([[Int]]) -> Void)?
     
+   
     @IBOutlet weak var gridView: GridView!
-     var engine = StandardEngine.gridEngine
+    
+    var otherEngine =  StandardEngine(10,10)
+    var engine = StandardEngine.gridEngine
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +29,14 @@ class ConfigurationViewController: UIViewController, EngineDelegate, GridViewDat
    
     }
     
-    
+    @IBAction func saveConfigToSimulator(_ sender: Any) {
+        engine.cols = otherEngine.cols
+        engine.rows = otherEngine.rows
+        engine.grid = otherEngine.grid
+        
+        engine.wasGridEdited = true
+        
+    }
     func findMax()-> Int {
         let max1 = initialConfiguration?.max(by: { (a, b) -> Bool in
             return a.max()! < b.max()!
@@ -33,22 +45,23 @@ class ConfigurationViewController: UIViewController, EngineDelegate, GridViewDat
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        engine.rows = findMax() * 2
-        let size = engine.rows
+        otherEngine.rows = findMax() * 2
+        otherEngine.cols = findMax() * 2
+        let size = otherEngine.rows
         
         Grid.jsonConfig = initialConfiguration
         
         
-        engine.grid = Grid(size, size, cellInitializer: Grid.jsonInitializer)
+        otherEngine.grid = Grid(size, size, cellInitializer: Grid.jsonInitializer)
         gridView.size = size
-        engine.delegate = self   //?????
+     //   engine.delegate = self   //?????
         
         self.gridView.setNeedsDisplay()
         
         gridView.theGrid = self   //????
         
         
-        let nc = NotificationCenter.default
+        /*let nc = NotificationCenter.default
         let name = Notification.Name(rawValue: "EngineUpdate")
         nc.addObserver(
             forName: name,
@@ -56,12 +69,13 @@ class ConfigurationViewController: UIViewController, EngineDelegate, GridViewDat
             queue: nil) { (n) in
                 self.gridView.setNeedsDisplay()
         }
+ */
         
     }
     
     public subscript (row: Int, col: Int) -> CellState {
-        get { return engine.grid[row,col] }
-        set { engine.grid[row,col] = newValue }
+        get { return otherEngine.grid[row,col] }
+        set { otherEngine.grid[row,col] = newValue }
     }
     
     func engineDidUpdate(withGrid: Grid) {

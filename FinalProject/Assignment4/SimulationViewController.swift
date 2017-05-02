@@ -10,6 +10,8 @@ import UIKit
 
 class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSource {
     
+    
+    @IBOutlet weak var timerSwitch: UISwitch!
     @IBOutlet weak var gridView: GridView!
      var engine = StandardEngine.gridEngine
 
@@ -20,16 +22,34 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
    
     }
     
+    @IBAction func changedTimerSwitch(_ sender: UISwitch) {
+        if (sender.isOn) {
+            engine.refreshRate = engine.tempRate
+            
+        } else {
+             engine.refreshTimer?.invalidate()
+        }
+    }
+   
     override func viewWillAppear(_ animated: Bool) {
-        let size = StandardEngine.gridEngine.rows
         
-        engine.grid = Grid(size, size)
+        timerSwitch.isOn = false
+       let size = StandardEngine.gridEngine.rows
+        
+       let emptyCount = lazyPositions(self.engine.grid.size)
+            .filter( { return  self.engine.grid[$0.row, $0.col] == .empty })
+            .count
+        if (emptyCount == size * size) {
+            engine.grid = Grid(size, size)
+        }
+        
         gridView.size = size
+        
         engine.delegate = self   //?????
         
         self.gridView.setNeedsDisplay()
         
-        gridView.theGrid = self   //????
+        gridView.theGrid = self       //????
         
         
         let nc = NotificationCenter.default
@@ -60,20 +80,14 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
     
     
     @IBAction func stepBtnAction(_ sender: Any) {
-        if engine.tempRate > 0 {
-            engine.refreshRate = engine.tempRate
-        } else {
+        
             engine.grid = engine.step()//engine.grid.next()
             gridView.setNeedsDisplay()
-        }
+        
         
     }
     
   
-    @IBAction func stopButton(_ sender: UIButton) {
-        engine.tempRate = 0
-        engine.refreshRate = 0
-    }
     
     
  

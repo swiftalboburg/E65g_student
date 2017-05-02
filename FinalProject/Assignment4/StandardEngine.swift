@@ -15,12 +15,13 @@ import Foundation
     var rows : Int
     var cols : Int
     var refreshTimer : Timer?
+    var wasGridEdited = false
     
     var delegate : EngineDelegate?
     var grid : GridProtocol
     var tempRate = 0.0
     var refreshRate = 0.0   {
-        didSet {
+       didSet {
            if refreshRate > 0.0 {
                 refreshTimer = Timer.scheduledTimer(
                     withTimeInterval: refreshRate,
@@ -42,6 +43,7 @@ import Foundation
           }
  
         }
+ 
  
     }
 

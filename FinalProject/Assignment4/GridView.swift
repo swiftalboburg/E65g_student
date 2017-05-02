@@ -129,6 +129,7 @@ import UIKit
             else { return pos }
         
         theGrid![pos.row,pos.col] = theGrid![pos.row,pos.col].toggle(theGrid![pos.row,pos.col])
+        
         // print(theGrid[pos].description())
         
        // delegate?.engineDidUpdate(withGrid : grid as! Grid)

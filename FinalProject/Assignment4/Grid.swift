@@ -173,7 +173,7 @@ public extension Grid {
         var jsonGridPositions = [GridPosition]()
         
         for i in 0..<jsonConfig!.count {
-            j = 0
+            
             while (j < jsonConfig![0].count) {
                  let jsonRow = jsonConfig![i][j]
                  j += 1
@@ -181,7 +181,7 @@ public extension Grid {
                  jsonGridPositions.append(GridPosition(jsonRow,jsonCol))
                  j += 1
             }
-            
+            j = 0
         }
      
         //print(jsonGridPositions)

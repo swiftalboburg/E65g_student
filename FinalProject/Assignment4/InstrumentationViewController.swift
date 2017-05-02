@@ -13,11 +13,16 @@ let finalProjectURL = "https://dl.dropboxusercontent.com/u/7544475/S65g.json"
 
 class InstrumentationViewController: UIViewController,  UITableViewDataSource, UITableViewDelegate {
     
+    
+    var engine = StandardEngine.gridEngine
+    var jsonArray : NSArray?
+    var jsonDictionary = [String: [[Int]]]() as Dictionary?  //[String: [[Int]]]
     @IBOutlet weak var rowsStepper: UIStepper!
     
     @IBOutlet weak var rowsText: UITextField!
  
     @IBOutlet weak var refreshRate: UISlider!
+      
     
     @IBOutlet weak var timedRefresh: UISwitch!
     
@@ -26,9 +31,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     
     
     
-    var engine = StandardEngine.gridEngine
-    var jsonArray : NSArray?
-    var jsonDictionary = [String: [[Int]]]() as Dictionary?  //[String: [[Int]]]
+    
     
     
     @IBAction func sizeStepper(_ sender: UIStepper) {
@@ -40,6 +43,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
         engine.grid = Grid(engine.rows, engine.rows)
         //gridView.setNeedsDisplay()
         rowsText.text = "\(Int(rowsStepper.value))"
+        engine.wasGridEdited = false
         
     }
     
@@ -48,7 +52,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        rowsStepper.value = 1
+        rowsStepper.value = 0
         rowsText.text = String(Int(rowsStepper.value))
         
         let fetcher = Fetcher()
@@ -94,7 +98,6 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        timedRefresh.isOn = false
         
         
       
@@ -107,25 +110,15 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     }
 
   
+  
+    
+    
     @IBAction func refreshRateAction(_ sender: UISlider) {
-       //engine.refreshRate = Double(sender.value)
-       /* Note: I could not update it here because when I used the tab controller to switch to the Simulation tab the UISlider resets itseft to the initial value.  I used the switch event to capture the slider value
-     */
+       engine.tempRate = Double(sender.value)
+      
     }
     
-    @IBAction func timedRefreshSwitchAction(_ sender: Any) {
-        
-        if (timedRefresh.isOn) {
-            //refreshRate.isEnabled = true
-            engine.tempRate = Double(refreshRate.value)
-            
-            }
-        else {
-            engine.tempRate = 0.0
-            //refreshRate.isEnabled = false
-        }
-        
-    }
+   
   
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
