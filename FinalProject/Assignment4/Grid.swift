@@ -37,6 +37,7 @@ public protocol GridProtocol {
     init(_ rows: Int, _ cols: Int, cellInitializer: (GridPosition) -> CellState)
     var description: String { get }
     var size: GridSize { get }
+    var jsonConfig : [GridPosition]?  { get set }
     
     
     subscript (row: Int, col: Int) -> CellState { get set }
@@ -89,7 +90,8 @@ extension GridProtocol {
 public struct Grid: GridProtocol, GridViewDataSource {
     private var _cells: [[CellState]]
     public let size: GridSize
-    public static var jsonConfig : [[Int]]?
+    public var jsonConfig : [GridPosition]?
+   
    
     
 
@@ -166,35 +168,22 @@ public extension Grid {
         }
     }
     
-
+  
     public static func jsonInitializer(pos: GridPosition) -> CellState {
-       
-        var j = 0
-        var jsonGridPositions = [GridPosition]()
         
-        for i in 0..<jsonConfig!.count {
-            
-            while (j < jsonConfig![0].count) {
-                 let jsonRow = jsonConfig![i][j]
-                 j += 1
-                 let jsonCol = jsonConfig![i][j]
-                 jsonGridPositions.append(GridPosition(jsonRow,jsonCol))
-                 j += 1
-            }
-            j = 0
-        }
-     
         //print(jsonGridPositions)
-       
-        if (jsonGridPositions.contains(where: { $0 == pos} ) ){
+        
+        if (ConfigurationViewController.editorEngine.grid.jsonConfig?.contains(where: { $0 == pos} ) )!{
             return .alive
         } else {
             return .empty
         }
         
-
-      
     }
+        
+        
+    
+
     
     
 }

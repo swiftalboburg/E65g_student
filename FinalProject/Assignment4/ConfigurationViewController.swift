@@ -12,14 +12,17 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource //Engin
 {
    
     
+    @IBOutlet weak var configName: UITextField!
     
-    var initialConfiguration : [[Int]]?
-    var  saveClosure: (([[Int]]) -> Void)?
+    var initialConfiguration : [GridPosition]?
+    var configurationName: String?
+    var  saveClosure: ((String, ([GridPosition])) -> Void)?
     
    
     @IBOutlet weak var gridView: GridView!
     
-    var otherEngine =  StandardEngine(10,10)
+    static var editorEngine =  StandardEngine(10,10)
+    var otherEngine = ConfigurationViewController.editorEngine
     var engine = StandardEngine.gridEngine
 
     override func viewDidLoad() {
@@ -28,48 +31,41 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource //Engin
        
    
     }
+   
     
-    @IBAction func saveConfigToSimulator(_ sender: Any) {
-        engine.cols = otherEngine.cols
-        engine.rows = otherEngine.rows
-        engine.grid = otherEngine.grid
-        
-        engine.wasGridEdited = true
+   // var jsonInitializer : ((GridPosition) -> CellState)?
+    /*{
+    
+        if (jsonConfig?.contains(where: { $0 == pos} ) )!{
+            return .alive
+        } else {
+            return .empty
+        }
         
     }
-    func findMax()-> Int {
-        let max1 = initialConfiguration?.max(by: { (a, b) -> Bool in
-            return a.max()! < b.max()!
-        })?.max()
-        return max1!
+    
     }
+    
+    */
     
     override func viewWillAppear(_ animated: Bool) {
-        otherEngine.rows = findMax() * 2
-        otherEngine.cols = findMax() * 2
+        
+        otherEngine.cols = otherEngine.rows
         let size = otherEngine.rows
         
-        Grid.jsonConfig = initialConfiguration
+        otherEngine.grid.jsonConfig = initialConfiguration
         
         
         otherEngine.grid = Grid(size, size, cellInitializer: Grid.jsonInitializer)
         gridView.size = size
-     //   engine.delegate = self   //?????
+     //   engine.delegate = self   //?
         
         self.gridView.setNeedsDisplay()
         
-        gridView.theGrid = self   //????
+        gridView.theGrid = self   //?
+        configName.text = self.configurationName!
         
-        
-        /*let nc = NotificationCenter.default
-        let name = Notification.Name(rawValue: "EngineUpdate")
-        nc.addObserver(
-            forName: name,
-            object: nil,
-            queue: nil) { (n) in
-                self.gridView.setNeedsDisplay()
-        }
- */
+    
         
     }
     
@@ -88,6 +84,22 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource //Engin
     }
 
     
+    @IBAction func saveButton(_ sender: UIBarButtonItem) {
+        engine.cols = otherEngine.cols
+        engine.rows = otherEngine.rows
+        engine.grid = otherEngine.grid
+        
+        
+        if let newValue = configName.text,
+            let saveClosure = saveClosure {
+            saveClosure(newValue, otherEngine.grid as! ([GridPosition]))
+            self.navigationController?.popViewController(animated: true)
+        }
+
+        
+       
+        
+    }
     
        
     

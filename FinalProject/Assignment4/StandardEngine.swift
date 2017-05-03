@@ -15,7 +15,7 @@ import Foundation
     var rows : Int
     var cols : Int
     var refreshTimer : Timer?
-    var wasGridEdited = false
+    
     
     var delegate : EngineDelegate?
     var grid : GridProtocol

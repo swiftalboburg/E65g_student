@@ -16,7 +16,10 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     
     var engine = StandardEngine.gridEngine
     var jsonArray : NSArray?
-    var jsonDictionary = [String: [[Int]]]() as Dictionary?  //[String: [[Int]]]
+    var jsonCoordinates : [[Int]]?
+    
+    var jsonDictionary = [String : [GridPosition]]() as Dictionary?  //[String: [[Int]]]
+    
     @IBOutlet weak var rowsStepper: UIStepper!
     
     @IBOutlet weak var rowsText: UITextField!
@@ -43,10 +46,10 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
         engine.grid = Grid(engine.rows, engine.rows)
         //gridView.setNeedsDisplay()
         rowsText.text = "\(Int(rowsStepper.value))"
-        engine.wasGridEdited = false
+       
         
     }
-    
+ 
    
     
     override func viewDidLoad() {
@@ -54,6 +57,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
         // Do any additional setup after loading the view, typically from a nib.
         rowsStepper.value = 0
         rowsText.text = String(Int(rowsStepper.value))
+        
         
         let fetcher = Fetcher()
         fetcher.fetchJSON(url: URL(string:finalProjectURL)!) { (json: Any?, message: String?) in
@@ -73,15 +77,20 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
                 let dict = (self.jsonArray![i] as! NSDictionary)
                 
                 let jsonTitle = dict["title"] as! String
-                let jsonContents = dict["contents"] as! [[Int]]
-               
-                self.jsonDictionary?[jsonTitle] = jsonContents
+                self.jsonCoordinates = dict["contents"] as? [[Int]]
+                
+                
+                self.jsonDictionary?[jsonTitle] =  self.jsonCoordinates.map { row in
+                        row.map { col in
+                        return GridPosition(col[0], col[1])
+                    }
+                }
                 i += 1
                 
             }
            
             //print (jsonTitle, jsonContents)
-           // print(self.jsonDictionary!)
+            print(self.jsonDictionary!)
             OperationQueue.main.addOperation {
                
                 self.tableViewOfConfigurations.reloadData()
@@ -139,10 +148,12 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
         let label = cell.contentView.subviews.first as! UILabel
         
         if (self.jsonDictionary != nil) {
-            let dict1 = (self.jsonArray![indexPath.item] as! NSDictionary)
+            
+            let dictKeyCopy = Array(self.jsonDictionary!.keys)
+            let keyName = dictKeyCopy[indexPath.row]
             
           
-            label.text = dict1["title"] as? String
+            label.text = keyName
             OperationQueue.main.addOperation {
                 
                 self.tableViewOfConfigurations.reloadData()
@@ -166,19 +177,41 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
         
     }
     
+    func findMax(of: [GridPosition])-> Int {
+        print(of)
+        let max1 = of.map{$0.row > $0.col ? $0.row : $0.col}
+            .reduce(0) { $0 > $1 ? $0 : $1 }
+        
+        
+        return max1
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         let indexPath = tableViewOfConfigurations.indexPathForSelectedRow
         if let indexPath = indexPath {
-            let dict = (self.jsonArray![indexPath.row] as! NSDictionary)
+          
             
-            let selectedValue = dict["title"] as! String
-           
+            let cell = tableViewOfConfigurations.cellForRow(at: indexPath)
+            let label = cell?.contentView.subviews.first as! UILabel
+            let selectedValue = label.text
+            
             if let vc = segue.destination as? ConfigurationViewController {
-                vc.initialConfiguration = self.jsonDictionary?[selectedValue]
-                vc.saveClosure = { newValue in
-                    self.jsonDictionary?[selectedValue] = newValue
-                    self.tableViewOfConfigurations.reloadData()
+                vc.initialConfiguration = self.jsonDictionary?[selectedValue!]
+                vc.configurationName = selectedValue
+                vc.otherEngine.rows = findMax(of: vc.initialConfiguration!) * 2
+                
+                vc.saveClosure = {name, values in
+                    if (name == selectedValue) {
+                        self.jsonDictionary?[selectedValue!] = values
+                        self.tableViewOfConfigurations.reloadData()
+                    } else {
+                    
+                   // vc.saveClosureName = { newValue in
+                   // self.json[indexPath.section][indexPath.row] = newValue
+                   // self.tableViewOfConfigurations.reloadData()
+                    
+                    }
                 }
             }
         }

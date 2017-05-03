@@ -45,11 +45,11 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
         
         gridView.size = size
         
-        engine.delegate = self   //?????
+        engine.delegate = self   //??
         
         self.gridView.setNeedsDisplay()
         
-        gridView.theGrid = self       //????
+        gridView.theGrid = self       //?
         
         
         let nc = NotificationCenter.default
