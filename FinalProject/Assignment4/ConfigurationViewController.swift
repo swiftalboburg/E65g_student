@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConfigurationViewController: UIViewController,  GridViewDataSource //EngineDelegate,
+class ConfigurationViewController: UIViewController,  GridViewDataSource//, EngineDelegate
 {
    
     
@@ -21,7 +21,9 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource //Engin
    
     @IBOutlet weak var gridView: GridView!
     
-    static var editorEngine =  StandardEngine(10,10)
+   
+    static var editorEngine : StandardEngine = StandardEngine(10,10)
+
     var otherEngine = ConfigurationViewController.editorEngine
     var engine = StandardEngine.gridEngine
 
@@ -51,14 +53,16 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource //Engin
     override func viewWillAppear(_ animated: Bool) {
         
         otherEngine.cols = otherEngine.rows
+        
         let size = otherEngine.rows
         
-        otherEngine.grid.jsonConfig = initialConfiguration
+        otherEngine.jsonConfig = initialConfiguration
         
         
         otherEngine.grid = Grid(size, size, cellInitializer: Grid.jsonInitializer)
         gridView.size = size
-     //   engine.delegate = self   //?
+        
+        //otherEngine.delegate = self   //?
         
         self.gridView.setNeedsDisplay()
         
@@ -85,14 +89,15 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource //Engin
 
     
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
-        engine.cols = otherEngine.cols
-        engine.rows = otherEngine.rows
-        engine.grid = otherEngine.grid
+        //engine.cols = otherEngine.cols
+       // engine.rows = otherEngine.rows
+       // engine.grid = otherEngine.grid
         
         
         if let newValue = configName.text,
             let saveClosure = saveClosure {
-            saveClosure(newValue, otherEngine.grid as! ([GridPosition]))
+            let size = GridSize(otherEngine.rows, otherEngine.cols)
+            saveClosure(newValue, lazyPositions(size).filter { return  self[$0.row, $0.col].isAlive })
             self.navigationController?.popViewController(animated: true)
         }
 

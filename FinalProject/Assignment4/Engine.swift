@@ -22,6 +22,8 @@ public protocol EngineDelegate {
     var refreshTimer : Timer? { get set }
     var rows : Int { get set }
     var cols : Int { get set }
+    var jsonConfig : [GridPosition]?  { get set }
+    
     init(_ rows : Int, _ columns : Int)
     func step() -> GridProtocol
     

@@ -204,12 +204,12 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
                 vc.saveClosure = {name, values in
                     if (name == selectedValue) {
                         self.jsonDictionary?[selectedValue!] = values
-                        self.tableViewOfConfigurations.reloadData()
+                        //self.tableViewOfConfigurations.reloadData()
                     } else {
                     
                    // vc.saveClosureName = { newValue in
-                   // self.json[indexPath.section][indexPath.row] = newValue
-                   // self.tableViewOfConfigurations.reloadData()
+                    self.jsonDictionary?[name] = values
+                    self.tableViewOfConfigurations.reloadData()
                     
                     }
                 }
