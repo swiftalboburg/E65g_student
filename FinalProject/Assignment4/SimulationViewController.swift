@@ -24,16 +24,38 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
     
     @IBAction func changedTimerSwitch(_ sender: UISwitch) {
         if (sender.isOn) {
-            engine.refreshRate = engine.tempRate
+           // engine.refreshRate = engine.tempRate
+            if engine.refreshRate > 0.0 {
+                engine.refreshTimer = Timer.scheduledTimer(
+                    withTimeInterval: engine.refreshRate,
+                    repeats: true
+                ) { (t: Timer) in
+                    self.engine.grid = self.engine.step()
+                    let nc = NotificationCenter.default
+                    let name = Notification.Name(rawValue: "GridUpdate")
+                    let n = Notification(name: name,
+                                         object: nil,
+                                         userInfo: ["standardEngine" : self])
+                    nc.post(n)
+                    
+                }
+            }
+            else {
+                engine.refreshTimer?.invalidate()
+                engine.refreshTimer = nil
+            }
+            
+
             
         } else {
              engine.refreshTimer?.invalidate()
+             engine.refreshTimer = nil
         }
     }
    
     override func viewWillAppear(_ animated: Bool) {
         
-        timerSwitch.isOn = false
+       
        let size = StandardEngine.gridEngine.rows
         
        let emptyCount = lazyPositions(self.engine.grid.size)

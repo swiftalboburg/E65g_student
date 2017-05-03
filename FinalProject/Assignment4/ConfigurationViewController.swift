@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConfigurationViewController: UIViewController,  GridViewDataSource//, EngineDelegate
+class ConfigurationViewController: UIViewController,  GridViewDataSource, EngineDelegate
 {
    
     
@@ -16,15 +16,15 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource//, Engi
     
     var initialConfiguration : [GridPosition]?
     var configurationName: String?
-    var  saveClosure: ((String, ([GridPosition])) -> Void)?
-    
+    //var  saveClosure: ((String) -> Void)?
+    var saveClosure: ((String, [GridPosition]) -> Void)?
    
     @IBOutlet weak var gridView: GridView!
     
    
-    static var editorEngine : StandardEngine = StandardEngine(10,10)
+    public var otherEngine : StandardEngine = StandardEngine(10,10)
 
-    var otherEngine = ConfigurationViewController.editorEngine
+    //var otherEngine = ConfigurationViewController.editorEngine
     var engine = StandardEngine.gridEngine
 
     override func viewDidLoad() {
@@ -56,13 +56,13 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource//, Engi
         
         let size = otherEngine.rows
         
-        otherEngine.jsonConfig = initialConfiguration
+        otherEngine.grid.jsonConfig = initialConfiguration
         
         
-        otherEngine.grid = Grid(size, size, cellInitializer: Grid.jsonInitializer)
+        otherEngine.grid = Grid(size, size, cellInitializer: otherEngine.grid.jsonInitializer)
         gridView.size = size
         
-        //otherEngine.delegate = self   //?
+        otherEngine.delegate = self   //?
         
         self.gridView.setNeedsDisplay()
         
@@ -89,16 +89,17 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource//, Engi
 
     
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
-        //engine.cols = otherEngine.cols
-       // engine.rows = otherEngine.rows
-       // engine.grid = otherEngine.grid
+        engine.cols = otherEngine.cols
+        engine.rows = otherEngine.rows
+        engine.grid = otherEngine.grid
         
         
         if let newValue = configName.text,
             let saveClosure = saveClosure {
             let size = GridSize(otherEngine.rows, otherEngine.cols)
+         //   saveClosure(newValue)
             saveClosure(newValue, lazyPositions(size).filter { return  self[$0.row, $0.col].isAlive })
-            self.navigationController?.popViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
         }
 
         

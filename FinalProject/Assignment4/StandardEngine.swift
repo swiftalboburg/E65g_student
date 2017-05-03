@@ -15,12 +15,12 @@ import Foundation
     var rows : Int
     var cols : Int
     var refreshTimer : Timer?
-    var jsonConfig : [GridPosition]?
+    
     
     var delegate : EngineDelegate?
     var grid : GridProtocol
     var tempRate = 0.0
-    var refreshRate = 0.0   {
+    var refreshRate = 0.0  /* {
        didSet {
            if refreshRate > 0.0 {
                 refreshTimer = Timer.scheduledTimer(
@@ -46,6 +46,7 @@ import Foundation
  
  
     }
+ */
 
 
     
