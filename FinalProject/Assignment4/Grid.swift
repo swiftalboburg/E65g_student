@@ -110,6 +110,27 @@ public struct Grid: GridProtocol, GridViewDataSource {
     }
 }
 
+var configuration: [String:[[Int]]] = [:]
+
+public extension Grid {
+    func setConfiguration() {
+        lazyPositions(self.size).forEach {
+            switch self[$0.row, $0.col] {
+            case .born:
+                configuration["born"] = (configuration["born"] ?? []) + [[$0.row, $0.col]]
+            case .died:
+                configuration["died"] = (configuration["died"] ?? []) + [[$0.row, $0.col]]
+            case .alive:
+                configuration["alive"] = (configuration["alive"] ?? []) + [[$0.row, $0.col]]
+            case .empty:
+                ()
+            }
+        }
+    }
+}
+
+
+
 extension Grid: Sequence {
     fileprivate var living: [GridPosition] {
         return lazyPositions(self.size).filter { return  self[$0.row, $0.col].isAlive   }
