@@ -12,16 +12,23 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    public var configuration: [String:[[Int]]] = [:]
+    public var configSize : Int = 0
 
-
+   // var engine = StandardEngine.gridEngine
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+        /*
             let defaults = UserDefaults.standard
-            defaults.set(configuration, forKey: "simulationConfiguration")
-            let recoveredStrings = defaults.object(forKey: "simulationConfiguration")
-        
+             defaults.set(configuration, forKey: "simulationConfiguration")
+             configuration = defaults.object(forKey: "simulationConfiguration") as! [String : [[Int]]]
+            defaults.set(configSize, forKey: "size")
+            configSize = defaults.object(forKey: "size") as! Int
+        */
+       
 
         // Override point for customization after application launch.
+ 
         return true
     }
 

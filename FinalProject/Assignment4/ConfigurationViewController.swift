@@ -35,20 +35,7 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource, Engine
     }
    
     
-   // var jsonInitializer : ((GridPosition) -> CellState)?
-    /*{
-    
-        if (jsonConfig?.contains(where: { $0 == pos} ) )!{
-            return .alive
-        } else {
-            return .empty
-        }
-        
-    }
-    
-    }
-    
-    */
+  
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -92,6 +79,19 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource, Engine
         engine.cols = otherEngine.cols
         engine.rows = otherEngine.rows
         engine.grid = otherEngine.grid
+        engine.loadingFrom = .json
+        engine.aliveCounter = 0
+        engine.emptyCounter = 0
+        engine.bornCounter = 0
+        engine.diedCounter = 0
+        
+        let nc = NotificationCenter.default
+        let name = Notification.Name(rawValue: "NextGridUpdate")
+        let n = Notification(name: name,
+                             object: nil,
+                             userInfo: ["standardEngine" : self])
+        nc.post(n)
+        
         
         
         if let newValue = configName.text,

@@ -58,7 +58,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        rowsStepper.value = 0
+        rowsStepper.value = 10
         rowsText.text = String(Int(rowsStepper.value))
         
         

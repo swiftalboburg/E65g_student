@@ -8,6 +8,7 @@
 
 import Foundation
 
+enum sources { case file, json, none}
 public protocol EngineDelegate {
     
     func engineDidUpdate(withGrid: Grid)
@@ -23,6 +24,11 @@ public protocol EngineDelegate {
     var rows : Int { get set }
     var cols : Int { get set }
    
+    var loadingFrom : sources { get set}
+    var aliveCounter : Int { get set }
+    var emptyCounter : Int { get set }
+    var bornCounter : Int { get set }
+    var diedCounter : Int { get set }
     
     init(_ rows : Int, _ columns : Int)
     func step() -> GridProtocol

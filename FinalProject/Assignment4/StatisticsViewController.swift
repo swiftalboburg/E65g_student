@@ -23,73 +23,66 @@ class StatisticsViewController: UIViewController {
     
     
     @IBOutlet weak var diedTextField: UITextField!
+  
     
-    var aliveCounter = 0
-    var emptyCounter = 0
-    var bornCounter = 0
-    var diedCounter = 0
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.aliveCounter = aliveCounter + lazyPositions(self.engine.grid.size)
+    func refreshStatistics()   {
+        engine.aliveCounter = engine.aliveCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .alive })
             .count
         
-        self.emptyCounter = emptyCounter + lazyPositions(self.engine.grid.size)
+        engine.emptyCounter = engine.emptyCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .empty })
             .count
-        self.bornCounter = bornCounter + lazyPositions(self.engine.grid.size)
+        engine.bornCounter = engine.bornCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .born })
             .count
-        self.diedCounter = diedCounter + lazyPositions(self.engine.grid.size)
+        engine.diedCounter = engine.diedCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .died })
             .count
         
-       
-        self.aliveTextField.text = String(self.aliveCounter)
-        self.emptyTextField.text = String(self.emptyCounter)
-        self.bornTextField.text = String(self.bornCounter)
-        self.diedTextField.text = String(self.diedCounter)
+        
+        self.aliveTextField.text = String(engine.aliveCounter)
+        self.emptyTextField.text = String(engine.emptyCounter)
+        self.bornTextField.text = String(engine.bornCounter)
+        self.diedTextField.text = String(engine.diedCounter)
+        
+
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        refreshStatistics()
+        
+        let nc = NotificationCenter.default
+        let name = Notification.Name(rawValue: "NextGridUpdate")
+        nc.addObserver(
+            forName: name,
+            object: nil,
+            queue : OperationQueue.main) { n in
+                //queue: nil) { n in
+                
+                print("observer")
+                
+                
+                print( self.engine.aliveCounter)
+                print (lazyPositions(self.engine.grid.size)
+                    .filter( { return  self.engine.grid[$0.row, $0.col] == .alive })
+                    .count)
+                
+                self.refreshStatistics()
+                
+                
+                
+        }
+
         
         //aliveTextField.text = String(aliveCounter)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let nc = NotificationCenter.default
-        let name = Notification.Name(rawValue: "GridUpdate")
-        nc.addObserver(
-            forName: name,
-            object: nil,
-            queue: nil) { n in
-                print("observer")
-             
-                
-                self.aliveCounter = self.aliveCounter + lazyPositions(self.engine.grid.size)
-                 .filter( { return  self.engine.grid[$0.row, $0.col] == .alive })
-                 .count
-                
-                self.emptyCounter = self.emptyCounter + lazyPositions(self.engine.grid.size)
-                    .filter( { return  self.engine.grid[$0.row, $0.col] == .empty })
-                    .count
-                self.bornCounter = self.bornCounter + lazyPositions(self.engine.grid.size)
-                    .filter( { return  self.engine.grid[$0.row, $0.col] == .born })
-                    .count
-                self.diedCounter = self.diedCounter + lazyPositions(self.engine.grid.size)
-                    .filter( { return  self.engine.grid[$0.row, $0.col] == .died })
-                    .count
-                
-                
-                
-            self.aliveTextField.text = String(self.aliveCounter)
-            self.emptyTextField.text = String(self.emptyCounter)
-            self.bornTextField.text = String(self.bornCounter)
-            self.diedTextField.text = String(self.diedCounter)
-
-                
-        }
-        
-              
+    
+    
     
     }
     

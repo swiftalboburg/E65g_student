@@ -1,6 +1,8 @@
 //
 //  Grid.swift
 //
+import UIKit
+
 public typealias GridPosition = (row: Int, col: Int)
 public typealias GridSize = (rows: Int, cols: Int)
 
@@ -38,12 +40,14 @@ public protocol GridProtocol {
     var description: String { get }
     var size: GridSize { get }
     var jsonConfig : [GridPosition]?  { get set }
-    func jsonInitializer(pos: GridPosition) -> CellState
-  
+    var configuration: [String:[[Int]]] { get set }
     
     
     subscript (row: Int, col: Int) -> CellState { get set }
-    func next() -> Self 
+    func next() -> Self
+    func setConfiguration()-> [String:[[Int]]]
+    func jsonInitializer(pos: GridPosition) -> CellState
+    func dictionaryInitializer(pos: GridPosition) -> CellState
 }
 
 public let lazyPositions = { (size: GridSize) in
@@ -93,6 +97,7 @@ public struct Grid: GridProtocol, GridViewDataSource {
     private var _cells: [[CellState]]
     public let size: GridSize
     public var jsonConfig : [GridPosition]?
+    public var configuration: [String:[[Int]]] = [:]
     
    
    
@@ -110,10 +115,13 @@ public struct Grid: GridProtocol, GridViewDataSource {
     }
 }
 
-var configuration: [String:[[Int]]] = [:]
+
 
 public extension Grid {
-    func setConfiguration() {
+    func setConfiguration()-> [String:[[Int]]] {
+        
+        var configuration: [String:[[Int]]] = [:]
+        
         lazyPositions(self.size).forEach {
             switch self[$0.row, $0.col] {
             case .born:
@@ -126,6 +134,7 @@ public extension Grid {
                 ()
             }
         }
+     return configuration
     }
 }
 
@@ -204,11 +213,32 @@ public extension Grid {
         }
         
     }
-        
-        
+  
     
-
-    
+    public func dictionaryInitializer(pos : GridPosition) -> CellState {
+      print(configuration)
+       for (key, value) in configuration {
+      
+            let coord : [Int] = [pos.row, pos.col]
+        if (value.contains { $0 == coord}) {  //$0[0] == pos.row && $0[1] == pos.col }) { //$0 == coord}) {
+                switch key {
+                    case "died" :
+                        return .died
+                    case "alive" :
+                        return .alive
+                    case "born" :
+                        return .born
+                    default :
+                        return .empty
+                }
+        
+         //   } else {
+         //        return .empty
+            }
+        }
+        return .empty
+     
+    }
     
 }
 

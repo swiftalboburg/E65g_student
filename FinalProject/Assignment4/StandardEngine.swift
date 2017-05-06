@@ -15,6 +15,11 @@ import Foundation
     var rows : Int
     var cols : Int
     var refreshTimer : Timer?
+    var loadingFrom : sources = .none
+    var aliveCounter = 0
+    var emptyCounter = 0
+    var bornCounter = 0
+    var diedCounter = 0
     
     
     var delegate : EngineDelegate?
@@ -68,7 +73,7 @@ import Foundation
         grid = newGrid
         delegate?.engineDidUpdate(withGrid : grid as! Grid)
         let nc = NotificationCenter.default
-        let name = Notification.Name(rawValue: "GridUpdate")
+        let name = Notification.Name(rawValue: "NextGridUpdate")
         let n = Notification(name: name,
                              object: nil,
                              userInfo: ["standardEngine" : self])

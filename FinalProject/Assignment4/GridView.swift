@@ -133,6 +133,8 @@ import UIKit
         // print(theGrid[pos].description())
         
        // delegate?.engineDidUpdate(withGrid : grid as! Grid)
+        setNeedsDisplay()
+        
         let nc = NotificationCenter.default
         let name = Notification.Name(rawValue: "GridUpdate")
         let n = Notification(name: name,
@@ -141,7 +143,7 @@ import UIKit
         nc.post(n)
         
         
-        setNeedsDisplay()
+        
         return pos
     }
     
