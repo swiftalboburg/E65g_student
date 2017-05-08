@@ -67,16 +67,23 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
             // Do any additional setup after loading the view, typically from a nib.
             engine.grid.configuration = (defaults.object(forKey: "simulationConfiguration") as? [String: [[Int]]]) ?? [:]
             print(engine.grid.configuration)
+            let savedSize = (defaults.object(forKey: "size") as! Int)
             
+            engine.rows = savedSize
+            
+            engine.loadingFrom = .file
             
             if (engine.grid.configuration.isEmpty == false) {
                // defaults.removeObject(forKey:"size")
-                let savedSize = (defaults.object(forKey: "size") as! Int)
+               // let savedSize = (defaults.object(forKey: "size") as! Int)
                // let savedSize = 114
-                engine.rows = savedSize
+               // engine.rows = savedSize
                 
                 engine.grid = Grid(savedSize, savedSize, cellInitializer: engine.grid.dictionaryInitializer)
-                engine.loadingFrom = .file
+                //engine.loadingFrom = .file
+            } else {
+                 engine.grid = Grid(savedSize, savedSize)
+                
             }
         }
 
