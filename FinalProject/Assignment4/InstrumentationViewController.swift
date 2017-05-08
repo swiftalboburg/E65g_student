@@ -18,7 +18,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     var jsonArray : NSArray?
     var jsonCoordinates : [[Int]]?
     
-    var jsonDictionary = [String : [GridPosition]]() //as Dictionary?  //[String: [[Int]]]
+    public var jsonDictionary = [String : [GridPosition]]() //as Dictionary?  //[String: [[Int]]]
     
     
     //var data : [String:[[Int]]] = [:]
@@ -36,7 +36,12 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     @IBOutlet weak var tableViewOfConfigurations: UITableView!
     
     
-    
+    @IBAction func addButtonClick(_ sender: UIBarButtonItem) {
+     
+        self.jsonDictionary["New Name"] = []
+        self.tableViewOfConfigurations.reloadData()
+        
+    }
     
     
     
@@ -99,14 +104,8 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
                
                 self.tableViewOfConfigurations.reloadData()
             }
-           
-            
-            
             
         }
-      
-        
-        
         
     }
 
@@ -128,7 +127,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
     
     @IBAction func refreshRateAction(_ sender: UISlider) {
       // engine.tempRate = Double(sender.value)
-         engine.refreshRate = Double(sender.value)
+         engine.refreshRate = 1/Double(sender.value)
       
     }
     
@@ -200,43 +199,50 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
         }
     }
  */
+    
+    
+   
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let indexPath = tableViewOfConfigurations.indexPathForSelectedRow
-        if let indexPath = indexPath {
-          
+        
+      
+            let indexPath = tableViewOfConfigurations.indexPathForSelectedRow
+            if let indexPath = indexPath {
             
-            let cell = tableViewOfConfigurations.cellForRow(at: indexPath)
-            let label = cell?.contentView.subviews.first as! UILabel
-            let selectedValue = label.text
+                let cell = tableViewOfConfigurations.cellForRow(at: indexPath)
+                let label = cell?.contentView.subviews.first as! UILabel
+                let selectedValue = label.text
             
-            if let vc = segue.destination as? ConfigurationViewController {
-                vc.initialConfiguration = self.jsonDictionary[selectedValue!]
-                vc.configurationName = selectedValue
-                vc.otherEngine.rows = findMax(of: vc.initialConfiguration!) * 2
+                if let vc = segue.destination as? ConfigurationViewController {
                 
-                vc.saveClosure = {newName, value in
-                    
-                 
-                    //let dict = (self.jsonArray![indexPath.row] as! NSDictionary)
-                    
-                  
+                    if  (self.jsonDictionary[selectedValue!]?.isEmpty)! {   /*new value */
+                        if let vc = segue.destination as? ConfigurationViewController {
+                            vc.otherEngine.rows = Int(rowsStepper.value)
+                            vc.configurationName = selectedValue!
+                            vc.initialConfiguration = nil
+                        }
+                        
+                    } else {
+ 
+                        vc.initialConfiguration = self.jsonDictionary[selectedValue!]
+                        vc.configurationName = selectedValue!
+                        vc.otherEngine.rows = findMax(of: vc.initialConfiguration!) * 2
                    
-                   // let jsonTitle = dict["title"]
-                   // let value = self.jsonDictionary[selectedValue!]
-                    self.jsonDictionary.remove(at: self.jsonDictionary.index(forKey: selectedValue!)!)
-                    self.jsonDictionary[newName] = value
-                   
-                  
+                        let backItem = UIBarButtonItem()
+                        backItem.title = "Cancel"
+                        navigationItem.backBarButtonItem = backItem
+                    }
+                    vc.saveClosure = {newName, value in
+
+                        self.jsonDictionary.remove(at: self.jsonDictionary.index(forKey: selectedValue!)!)
+                        self.jsonDictionary[newName] = value
                     
-                    
-                    
-                   // self.jsonDictionary?[name] = values
-                    self.tableViewOfConfigurations.reloadData()
-                    
-                    
+                        
+                        self.tableViewOfConfigurations.reloadData()
+                    }
                 }
             }
-        }
+         
     }
 }

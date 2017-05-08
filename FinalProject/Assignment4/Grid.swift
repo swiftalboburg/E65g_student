@@ -219,9 +219,9 @@ public extension Grid {
       print(configuration)
        for (key, value) in configuration {
       
-            let coord : [Int] = [pos.row, pos.col]
-        if (value.contains { $0 == coord}) {  //$0[0] == pos.row && $0[1] == pos.col }) { //$0 == coord}) {
-                switch key {
+        let coord : [Int] = [pos.row, pos.col]
+        if (value.contains { $0 == coord}) {
+            switch key {
                     case "died" :
                         return .died
                     case "alive" :
@@ -231,9 +231,6 @@ public extension Grid {
                     default :
                         return .empty
                 }
-        
-         //   } else {
-         //        return .empty
             }
         }
         return .empty

@@ -18,8 +18,49 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
    // enum sources { case file, json, none}
    // public var loadingFrom : sources = .none
 
+    @IBAction func resetButton(_ sender: UIButton) {
+        engine.cols = engine.rows
+        engine.grid = Grid(engine.rows, engine.cols)
+        engine.aliveCounter = 0
+        engine.emptyCounter = 0
+        engine.bornCounter = 0
+        engine.diedCounter = 0
+        let nc = NotificationCenter.default
+        let name = Notification.Name(rawValue: "NextGridUpdate")
+        let n = Notification(name: name,
+                             object: nil,
+                             userInfo: ["standardEngine" : self])
+        nc.post(n)
+        self.gridView.setNeedsDisplay()
+        
+
+    }
+    
+    func catchNotification(notification:Notification) -> Void {
+       let pushedEngine = notification.userInfo?["standardEngine"] as! StandardEngine
+        engine.rows = pushedEngine.rows
+        engine.cols = engine.rows
+        engine.grid = pushedEngine.grid
+        engine.loadingFrom = .json
+        engine.aliveCounter = 0
+        engine.emptyCounter = 0
+        engine.bornCounter = 0
+        engine.diedCounter = 0
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
+        let nc = NotificationCenter.default
+        let name = Notification.Name(rawValue: "PushGrid")
+        nc.addObserver(
+            forName: name,
+            object: nil,
+            queue : nil,
+            using : catchNotification)
+        
+        
         
         if engine.loadingFrom != .json {
             let defaults = UserDefaults.standard
@@ -56,7 +97,7 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
     
     @IBAction func changedTimerSwitch(_ sender: UISwitch) {
         if (sender.isOn) {
-           // engine.refreshRate = engine.tempRate
+           
             if engine.refreshRate > 0.0 {
                 engine.refreshTimer = Timer.scheduledTimer(
                     withTimeInterval: engine.refreshRate,
@@ -69,15 +110,12 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
                                          object: nil,
                                          userInfo: ["standardEngine" : self])
                     nc.post(n)
-                    
                 }
             }
             else {
                 engine.refreshTimer?.invalidate()
                 engine.refreshTimer = nil
             }
-            
-
             
         } else {
              engine.refreshTimer?.invalidate()
@@ -96,23 +134,11 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
         if engine.loadingFrom == .json {
         
         }
-      /*
-         
-       let emptyCount = lazyPositions(self.engine.grid.size)
-            .filter( { return  self.engine.grid[$0.row, $0.col] == .empty })
-            .count
-        if (emptyCount == size * size) {   //Is empty
-            engine.grid = Grid(size, size)
-        }
- */
+    
         gridView.size = size
-        
         engine.delegate = self   //??
-        
         self.gridView.setNeedsDisplay()
-        
         gridView.theGrid = self       //?
-        
         
         let nc = NotificationCenter.default
         let name = Notification.Name(rawValue: "EngineUpdate")

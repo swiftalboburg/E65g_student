@@ -15,14 +15,14 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource, Engine
     @IBOutlet weak var configName: UITextField!
     
     var initialConfiguration : [GridPosition]?
-    var configurationName: String?
+    var configurationName: String = "New Value"
     //var  saveClosure: ((String) -> Void)?
     var saveClosure: ((String, [GridPosition]) -> Void)?
    
     @IBOutlet weak var gridView: GridView!
     
    
-    public var otherEngine : StandardEngine = StandardEngine(10,10)
+     var otherEngine : StandardEngine = StandardEngine(10,10)
 
     //var otherEngine = ConfigurationViewController.editorEngine
     var engine = StandardEngine.gridEngine
@@ -45,8 +45,13 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource, Engine
         
         otherEngine.grid.jsonConfig = initialConfiguration
         
-        
-        otherEngine.grid = Grid(size, size, cellInitializer: otherEngine.grid.jsonInitializer)
+        if initialConfiguration != nil {
+            otherEngine.grid = Grid(size, size, cellInitializer: otherEngine.grid.jsonInitializer)
+             configName.text = self.configurationName
+        } else {
+            otherEngine.grid = Grid(size, size)
+            configName.text = self.configurationName
+        }
         gridView.size = size
         
         otherEngine.delegate = self   //?
@@ -54,7 +59,7 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource, Engine
         self.gridView.setNeedsDisplay()
         
         gridView.theGrid = self   //?
-        configName.text = self.configurationName!
+       
         
     
         
@@ -76,34 +81,37 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource, Engine
 
     
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
-        engine.cols = otherEngine.cols
-        engine.rows = otherEngine.rows
-        engine.grid = otherEngine.grid
-        engine.loadingFrom = .json
-        engine.aliveCounter = 0
-        engine.emptyCounter = 0
-        engine.bornCounter = 0
-        engine.diedCounter = 0
-        
+       
         let nc = NotificationCenter.default
-        let name = Notification.Name(rawValue: "NextGridUpdate")
+        let name = Notification.Name(rawValue: "PushGrid")
         let n = Notification(name: name,
                              object: nil,
-                             userInfo: ["standardEngine" : self])
+                             userInfo: ["standardEngine" : otherEngine])
         nc.post(n)
         
+      
         
         
-        if let newValue = configName.text,
-            let saveClosure = saveClosure {
+        let nc1 = NotificationCenter.default
+        let name1 = Notification.Name(rawValue: "NextGridUpdate")    
+        let n1 = Notification(name: name1,
+                             object: nil,
+                             userInfo: ["standardEngine" : self])
+        nc1.post(n1)
+        
+        
+      
+        
+        if let newValue = configName.text,  let saveClosure = saveClosure {
+            
             let size = GridSize(otherEngine.rows, otherEngine.cols)
-         //   saveClosure(newValue)
-            saveClosure(newValue, lazyPositions(size).filter { return  self[$0.row, $0.col].isAlive })
+        
+                saveClosure(newValue, lazyPositions(size).filter { return  self[$0.row, $0.col].isAlive })
             //self.navigationController?.popViewController(animated: true)
         }
 
-        
-       
+      self.navigationController?.popViewController(animated: true)
+    
         
     }
     

@@ -130,17 +130,17 @@ import UIKit
         
         theGrid![pos.row,pos.col] = theGrid![pos.row,pos.col].toggle(theGrid![pos.row,pos.col])
         
-        // print(theGrid[pos].description())
+        print(theGrid![pos.row,pos.col])
         
        // delegate?.engineDidUpdate(withGrid : grid as! Grid)
         setNeedsDisplay()
-        
+        let state =  (theGrid![pos.row,pos.col] == .alive) ? "alive" : "empty"
         let nc = NotificationCenter.default
-        let name = Notification.Name(rawValue: "GridUpdate")
+        let name = Notification.Name(rawValue: "touch")
         let n = Notification(name: name,
                              object: nil,
-                             userInfo: ["standardEngine" : self])
-        nc.post(n)
+                             userInfo: ["state" : state])
+            nc.post(n)
         
         
         

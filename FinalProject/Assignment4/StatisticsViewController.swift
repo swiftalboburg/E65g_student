@@ -11,6 +11,7 @@ import UIKit
 class StatisticsViewController: UIViewController {
     
     var engine = StandardEngine.gridEngine
+    var numTouches = 0
     
     
     
@@ -26,10 +27,11 @@ class StatisticsViewController: UIViewController {
   
     
     func refreshStatistics()   {
-        engine.aliveCounter = engine.aliveCounter + lazyPositions(self.engine.grid.size)
+        engine.aliveCounter = numTouches + engine.aliveCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .alive })
             .count
         
+        numTouches = 0
         engine.emptyCounter = engine.emptyCounter + lazyPositions(self.engine.grid.size)
             .filter( { return  self.engine.grid[$0.row, $0.col] == .empty })
             .count
@@ -60,30 +62,41 @@ class StatisticsViewController: UIViewController {
             forName: name,
             object: nil,
             queue : OperationQueue.main) { n in
-                //queue: nil) { n in
                 
-                print("observer")
+                //print("observer")
                 
-                
-                print( self.engine.aliveCounter)
-                print (lazyPositions(self.engine.grid.size)
-                    .filter( { return  self.engine.grid[$0.row, $0.col] == .alive })
-                    .count)
+               // print( self.engine.aliveCounter)
+               // print (lazyPositions(self.engine.grid.size)
+               //     .filter( { return  self.engine.grid[$0.row, $0.col] == .alive })
+               //     .count)
                 
                 self.refreshStatistics()
                 
                 
                 
         }
-
+        let nc1 = NotificationCenter.default
+        let name1 = Notification.Name(rawValue: "touch")
+        nc1.addObserver(
+            forName: name1,
+            object: nil,
+            queue : OperationQueue.main) { n in
+                let stateTouched = n.userInfo?["state"] as! String
+                if stateTouched == "alive" {
+                   self.numTouches += 1
+                } else {
+                    self.numTouches -= 1
+                }
+                
+        }
+ 
         
         //aliveTextField.text = String(aliveCounter)
     }
     
     override func viewWillAppear(_ animated: Bool) {
     
-    
-    
+        
     }
     
     override func didReceiveMemoryWarning() {

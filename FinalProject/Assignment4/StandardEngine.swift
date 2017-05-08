@@ -25,35 +25,7 @@ import Foundation
     var delegate : EngineDelegate?
     var grid : GridProtocol
     var tempRate = 0.0
-    var refreshRate = 0.0  /* {
-       didSet {
-           if refreshRate > 0.0 {
-                refreshTimer = Timer.scheduledTimer(
-                    withTimeInterval: refreshRate,
-                    repeats: true
-                ) { (t: Timer) in
-                    self.grid = self.step()
-                    let nc = NotificationCenter.default
-                    let name = Notification.Name(rawValue: "GridUpdate")
-                    let n = Notification(name: name,
-                                         object: nil,
-                                         userInfo: ["standardEngine" : self])
-                    nc.post(n)
-
-                }
-            }
-            else {
-                refreshTimer?.invalidate()
-                refreshTimer = nil
-          }
- 
-        }
- 
- 
-    }
- */
-
-
+    var refreshRate = 0.0  
     
     
     
@@ -64,10 +36,11 @@ import Foundation
         self.grid = Grid(rows,columns)
         self.refreshTimer = Timer()
         
+        
     }
     
     
-      
+    
     func step() -> GridProtocol {
         let newGrid = grid.next()
         grid = newGrid
