@@ -82,6 +82,7 @@ class ConfigurationViewController: UIViewController,  GridViewDataSource, Engine
     
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
        
+        print(otherEngine.rows)
         let nc = NotificationCenter.default
         let name = Notification.Name(rawValue: "PushGrid")
         let n = Notification(name: name,

@@ -432,7 +432,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lte-Um-1S4" customClass="GridView" customModule="FinalProject" customModuleProvider="target">
-                                        <rect key="frame" x="25" y="115" width="325" height="325"/>
+                                        <rect key="frame" x="25.5" y="115" width="324" height="324"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="lte-Um-1S4" secondAttribute="height" multiplier="1:1" id="NMV-Ev-5Jc"/>
