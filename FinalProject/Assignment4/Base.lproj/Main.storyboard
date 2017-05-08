@@ -211,6 +211,16 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WgQ-9o-1my">
+                                        <rect key="frame" x="301" y="119" width="51" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="5nr-t5-01H"/>
+                                            <constraint firstAttribute="width" constant="49" id="UrV-jg-DF7"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="changedTimerSwitch:" destination="8rJ-Kc-sve" eventType="valueChanged" id="h9Y-L0-qZv"/>
+                                        </connections>
+                                    </switch>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wR4-Za-plU" userLabel="Step Button">
                                         <rect key="frame" x="25" y="120.5" width="39" height="30"/>
                                         <constraints>
@@ -222,19 +232,8 @@
                                             <action selector="stepBtnAction:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="4vN-L1-El7"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVd-6Z-e3z">
-                                        <rect key="frame" x="316" y="37" width="59" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="AIZ-Xc-ys2"/>
-                                            <constraint firstAttribute="width" constant="59" id="d7s-Ng-eLC"/>
-                                        </constraints>
-                                        <state key="normal" title="Save"/>
-                                        <connections>
-                                            <action selector="SaveSimulation:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="0nJ-eK-QTI"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H00-AZ-wxT" userLabel="Reset">
-                                        <rect key="frame" x="0.0" y="37" width="46" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Oaa-ui-adH"/>
                                             <constraint firstAttribute="width" constant="46" id="sqm-SH-eGE"/>
@@ -244,35 +243,39 @@
                                             <action selector="resetButton:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="eZz-yA-eju"/>
                                         </connections>
                                     </button>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WgQ-9o-1my">
-                                        <rect key="frame" x="301" y="119" width="51" height="31"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVd-6Z-e3z">
+                                        <rect key="frame" x="316" y="0.0" width="59" height="31"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="5nr-t5-01H"/>
-                                            <constraint firstAttribute="width" constant="49" id="UrV-jg-DF7"/>
+                                            <constraint firstAttribute="height" constant="31" id="AIZ-Xc-ys2"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="59" id="LCh-Mh-8L7"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="b3X-9Y-Xb3"/>
+                                            <constraint firstAttribute="width" constant="59" id="d7s-Ng-eLC"/>
                                         </constraints>
+                                        <state key="normal" title="Save"/>
                                         <connections>
-                                            <action selector="changedTimerSwitch:" destination="8rJ-Kc-sve" eventType="valueChanged" id="h9Y-L0-qZv"/>
+                                            <action selector="SaveSimulation:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="0nJ-eK-QTI"/>
                                         </connections>
-                                    </switch>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1764705882" green="0.93725490199999995" blue="0.27059" alpha="0.14781571061643839" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="SVd-6Z-e3z" secondAttribute="trailing" id="05t-CU-niJ"/>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="height" relation="lessThanOrEqual" secondItem="yqe-89-kxr" secondAttribute="height" multiplier="0.75" priority="750" id="10k-Tl-0jI"/>
-                                    <constraint firstItem="jA0-hc-e78" firstAttribute="centerY" secondItem="yqe-89-kxr" secondAttribute="centerY" id="5Jw-e8-EJF" userLabel="Grid View.centerY = centerY + 6.5">
+                                    <constraint firstItem="jA0-hc-e78" firstAttribute="centerY" secondItem="yqe-89-kxr" secondAttribute="centerY" id="5Jw-e8-EJF" userLabel="Grid View.centerY = centerY ">
                                         <variation key="widthClass=compact" constant="43.5"/>
                                     </constraint>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="height" secondItem="yqe-89-kxr" secondAttribute="height" multiplier="0.75" priority="750" constant="-117.5" id="9I5-dE-mE2" userLabel="Grid View.height = 0.75 × height @750"/>
                                     <constraint firstItem="WgQ-9o-1my" firstAttribute="trailing" secondItem="jA0-hc-e78" secondAttribute="trailing" id="BwX-0o-ys0"/>
                                     <constraint firstItem="H00-AZ-wxT" firstAttribute="leading" secondItem="yqe-89-kxr" secondAttribute="leading" id="CJx-5x-97a"/>
-                                    <constraint firstItem="jA0-hc-e78" firstAttribute="top" secondItem="wR4-Za-plU" secondAttribute="bottom" constant="28" id="IDj-EU-Lca" userLabel="Step Button.bottom = Grid View. top + 28"/>
-                                    <constraint firstItem="H00-AZ-wxT" firstAttribute="top" secondItem="yqe-89-kxr" secondAttribute="top" constant="37" id="Iy6-ur-6w2"/>
-                                    <constraint firstItem="SVd-6Z-e3z" firstAttribute="top" secondItem="yqe-89-kxr" secondAttribute="top" constant="37" id="JwV-4b-NwE"/>
+                                    <constraint firstItem="jA0-hc-e78" firstAttribute="top" secondItem="wR4-Za-plU" secondAttribute="bottom" constant="28" id="IDj-EU-Lca" userLabel="Step Button.bottom = Grid View. top + 5"/>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="width" relation="lessThanOrEqual" secondItem="yqe-89-kxr" secondAttribute="width" multiplier="0.75" priority="750" constant="43.75" id="MXM-CZ-ZC9" userLabel="Grid View.width ≤ 0.75 × width @750"/>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="width" secondItem="yqe-89-kxr" secondAttribute="width" multiplier="0.75" priority="750" constant="43.75" id="TnF-Ri-Jsz" userLabel="Grid View.width = 0.75 × width @750"/>
                                     <constraint firstAttribute="trailing" secondItem="SVd-6Z-e3z" secondAttribute="trailing" id="cXw-LR-Hsg" userLabel="Save.trailing = trailing "/>
+                                    <constraint firstItem="H00-AZ-wxT" firstAttribute="top" secondItem="yqe-89-kxr" secondAttribute="top" id="cvx-d4-oZa"/>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="centerX" secondItem="yqe-89-kxr" secondAttribute="centerX" id="dx0-iA-dmx" userLabel="Grid View.centerX = centerX "/>
                                     <constraint firstItem="jA0-hc-e78" firstAttribute="leading" secondItem="wR4-Za-plU" secondAttribute="leading" id="efc-hZ-JvZ"/>
-                                    <constraint firstItem="jA0-hc-e78" firstAttribute="top" secondItem="WgQ-9o-1my" secondAttribute="bottom" constant="28.5" id="iDz-Wy-QDI" userLabel="Timer Switch.bottom = Grid View.top + 28.5"/>
+                                    <constraint firstItem="jA0-hc-e78" firstAttribute="top" secondItem="WgQ-9o-1my" secondAttribute="bottom" constant="28.5" id="iDz-Wy-QDI" userLabel="Timer Switch.bottom = Grid View.top + 5"/>
+                                    <constraint firstItem="SVd-6Z-e3z" firstAttribute="top" secondItem="yqe-89-kxr" secondAttribute="top" id="qrO-vG-eyd"/>
                                 </constraints>
                             </view>
                         </subviews>

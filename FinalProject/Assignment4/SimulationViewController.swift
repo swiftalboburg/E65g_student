@@ -50,7 +50,7 @@ class SimulationViewController: UIViewController, EngineDelegate, GridViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      
        
         let nc = NotificationCenter.default
         let name = Notification.Name(rawValue: "PushGrid")
