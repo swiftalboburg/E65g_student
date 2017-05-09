@@ -218,7 +218,7 @@ class InstrumentationViewController: UIViewController,  UITableViewDataSource, U
                 
                     if  (self.jsonDictionary[selectedValue!]?.isEmpty)! {   /*new value */
                         if let vc = segue.destination as? ConfigurationViewController {
-                            vc.otherEngine.rows = Int(rowsStepper.value)
+                            vc.otherEngine.rows = Int(rowsText.text!)!
                             vc.configurationName = selectedValue!
                             vc.initialConfiguration = nil
                         }

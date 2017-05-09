@@ -432,7 +432,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lte-Um-1S4" customClass="GridView" customModule="FinalProject" customModuleProvider="target">
-                                        <rect key="frame" x="25.5" y="115" width="324" height="324"/>
+                                        <rect key="frame" x="25" y="114.5" width="325" height="325"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="lte-Um-1S4" secondAttribute="height" multiplier="1:1" id="NMV-Ev-5Jc"/>
@@ -447,20 +447,22 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hTh-PR-gWm">
-                                        <rect key="frame" x="120" y="59" width="230" height="30"/>
+                                        <rect key="frame" x="85" y="74.5" width="210" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="230" id="0aA-fA-coM"/>
-                                            <constraint firstAttribute="height" constant="30" id="YCw-uM-Qx7"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="230" id="c17-lU-nJb"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="230" id="kTQ-Lo-4h6"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="yQZ-9M-wk5"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="190" id="C1L-42-iDp"/>
+                                            <constraint firstAttribute="height" constant="30" id="YCw-uM-Qx7" userLabel="height = 20"/>
+                                            <constraint firstAttribute="width" constant="210" id="zFT-w4-MNc" userLabel="width = 190"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cc-eh-emz">
-                                        <rect key="frame" x="51" y="62" width="45" height="26"/>
+                                        <rect key="frame" x="25" y="83.5" width="45" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="62" id="aTY-x3-L88"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="ifV-Y2-49p"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -469,22 +471,17 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="lte-Um-1S4" firstAttribute="centerX" secondItem="jFn-zB-5OS" secondAttribute="centerX" id="0Fk-6K-L6M" userLabel="Grid View.centerX = centerX "/>
-                                    <constraint firstItem="lte-Um-1S4" firstAttribute="top" secondItem="2cc-eh-emz" secondAttribute="bottom" constant="27" id="93C-6k-a4X"/>
-                                    <constraint firstItem="hTh-PR-gWm" firstAttribute="leading" secondItem="2cc-eh-emz" secondAttribute="trailing" constant="24" id="HBd-6X-GZb"/>
-                                    <constraint firstItem="hTh-PR-gWm" firstAttribute="leading" secondItem="2cc-eh-emz" secondAttribute="trailing" constant="24" id="LGG-qn-ohs"/>
-                                    <constraint firstItem="lte-Um-1S4" firstAttribute="top" secondItem="hTh-PR-gWm" secondAttribute="bottom" constant="25.5" id="LZS-Iq-2o9"/>
-                                    <constraint firstItem="lte-Um-1S4" firstAttribute="width" secondItem="jFn-zB-5OS" secondAttribute="width" multiplier="0.75" priority="750" constant="43.75" id="Ln5-p1-mjj"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="top" secondItem="2cc-eh-emz" secondAttribute="bottom" constant="10" id="Dnh-yg-dHX"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="width" secondItem="jFn-zB-5OS" secondAttribute="width" multiplier="0.75" priority="750" constant="43.75" id="Ln5-p1-mjj" userLabel="Grid View.width = 0.75 × width  @750"/>
+                                    <constraint firstItem="hTh-PR-gWm" firstAttribute="leading" secondItem="2cc-eh-emz" secondAttribute="trailing" constant="15" id="P4Y-ty-b6p"/>
                                     <constraint firstItem="lte-Um-1S4" firstAttribute="centerY" secondItem="jFn-zB-5OS" secondAttribute="centerY" id="U2h-jf-nzv" userLabel="Grid View.centerY = centerY">
                                         <variation key="widthClass=compact" constant="0.0"/>
                                     </constraint>
-                                    <constraint firstAttribute="trailing" secondItem="hTh-PR-gWm" secondAttribute="trailing" constant="25" id="V3j-g2-wFl"/>
-                                    <constraint firstItem="lte-Um-1S4" firstAttribute="top" secondItem="hTh-PR-gWm" secondAttribute="bottom" constant="25.5" id="Zj4-6s-Rw5"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="leading" secondItem="2cc-eh-emz" secondAttribute="leading" id="V5e-D9-vGC"/>
                                     <constraint firstItem="lte-Um-1S4" firstAttribute="height" relation="lessThanOrEqual" secondItem="jFn-zB-5OS" secondAttribute="height" multiplier="0.75" priority="750" id="o7d-bz-EpP"/>
-                                    <constraint firstItem="2cc-eh-emz" firstAttribute="top" secondItem="jFn-zB-5OS" secondAttribute="top" constant="62" id="pfP-cP-m3q"/>
                                     <constraint firstItem="lte-Um-1S4" firstAttribute="height" secondItem="jFn-zB-5OS" secondAttribute="height" multiplier="0.75" priority="750" constant="-90.5" id="rgV-SM-5K8" userLabel="Grid View.height = 0.75 × height @750"/>
-                                    <constraint firstAttribute="trailing" secondItem="hTh-PR-gWm" secondAttribute="trailing" constant="25" id="uvW-Zo-FHC"/>
-                                    <constraint firstItem="lte-Um-1S4" firstAttribute="width" relation="lessThanOrEqual" secondItem="jFn-zB-5OS" secondAttribute="width" multiplier="0.75" priority="750" constant="43.75" id="y3A-zP-2Dj"/>
-                                    <constraint firstItem="hTh-PR-gWm" firstAttribute="top" secondItem="jFn-zB-5OS" secondAttribute="top" constant="59" id="yNJ-G4-N2U"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="width" relation="lessThanOrEqual" secondItem="jFn-zB-5OS" secondAttribute="width" multiplier="0.75" priority="750" constant="43.75" id="y3A-zP-2Dj" userLabel="Grid View.width ≤ 0.75 × width @750"/>
+                                    <constraint firstItem="lte-Um-1S4" firstAttribute="top" secondItem="hTh-PR-gWm" secondAttribute="bottom" constant="10" id="yhA-LR-PWE"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -513,7 +510,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bys-GP-aPN" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688.8000000000002" y="-438.53073463268368"/>
+            <point key="canvasLocation" x="2688.5" y="-439.5"/>
         </scene>
     </scenes>
     <resources>
